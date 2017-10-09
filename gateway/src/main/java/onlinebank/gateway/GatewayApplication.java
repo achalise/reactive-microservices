@@ -17,9 +17,17 @@ public class GatewayApplication {
 	@Value(value = "${cash.account.service}")
 	private String cashAccountService;
 
-	@Bean
+	@Value(value = "${card.account.service}")
+	private String cardAccountServiceUrl;
+
+	@Bean(name = "cashAccountService")
 	WebClient allAccountsRequest() {
 		return WebClient.create(cashAccountService).mutate().build();
+	}
+
+	@Bean(name = "cardAccountService")
+	WebClient allCardAccountsRequest() {
+		return WebClient.create(cardAccountServiceUrl).mutate().build();
 	}
 
 	@Bean

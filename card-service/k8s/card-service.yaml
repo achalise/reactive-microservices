@@ -1,36 +1,34 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: gateway-service
+  name: card-service
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: gateway-service
+        app: card-service
         tier: backend
         track: stable
     spec:
       containers:
-        - name: gateway-service
-          image: "achalise/gateway-service:0.0.1"
+        - name: card-service
+          image: "achalise/card-service:0.0.1"
           ports:
           - containerPort: 8080
           env:
-            - name: CASH_SERVICE_HOST
-              value: cash-service
-            - name: CARD_SERVICE_HOST
-              value: card-service
+            - name: MONGO_URI
+              value: mongo-card-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: gateway-service
+  name: card-service
 spec:
   ports:
     - port: 8080
       targetPort: 8080
   selector:
-    app: gateway-service
+    app: card-service
     tier: backend
-  type: NodePort
+

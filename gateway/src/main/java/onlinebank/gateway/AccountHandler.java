@@ -11,19 +11,24 @@ import reactor.core.publisher.Mono;
 @Component
 public class AccountHandler {
 
-    private WebClient accountClient;
+    private WebClient cashAccountService;
 
-    public AccountHandler(WebClient accountClient) {
-        this.accountClient = accountClient;
+    private WebClient cardAccountService;
+
+    public AccountHandler(WebClient cashAccountService, WebClient cardAccountService) {
+        this.cashAccountService = cashAccountService;
+        this.cardAccountService = cardAccountService;
     }
 
     Mono<ServerResponse> accountById(ServerRequest request) {
-        Mono<String> account = accountClient.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class);
+        Mono<String> account = cashAccountService.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class);
         return ServerResponse.ok().body(account, String.class);
     }
 
     Mono<ServerResponse> allAccounts(ServerRequest request) {
-        Flux<String> accounts = accountClient.get().uri("/all").retrieve().bodyToFlux(String.class);
-        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(accounts, String.class);
+        Flux<String> accounts = cashAccountService.get().uri("/all").retrieve().bodyToFlux(String.class);
+        Flux<String> cardAccounts = cardAccountService.get().uri("/all").retrieve().bodyToFlux(String.class);
+        Flux<String> allAccounts = accounts.mergeWith(cardAccounts);
+        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(allAccounts, String.class);
     }
 }
