@@ -1,7 +1,10 @@
 package onlinebank.cashservice;
 
+import onlinebank.cashservice.model.CashAccount;
+import onlinebank.cashservice.repository.CashAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -21,6 +24,7 @@ public class CashServiceApplication {
 
 	private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
+
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(CashServiceApplication.class, args);
 		MessageProducer producer = context.getBean(MessageProducer.class);
@@ -36,7 +40,20 @@ public class CashServiceApplication {
 				e.printStackTrace();
 			}
 		});
-		System.out.println("Successfullu published all 100 messages ..");
+		System.out.println("Successfully published all 100 messages ..");
+	}
+
+
+	@Bean
+	CommandLineRunner runner(CashAccountRepository repository) {
+		CashAccount account = new CashAccount();
+		account.setAccountName("Arun");
+		return (s) -> {
+			repository.deleteAll()
+					  .doOnSuccess(Void -> repository.save(account))
+					  .compose(Void -> repository.findAll())
+					   .subscribe(cashAccount -> System.out.println(cashAccount.getAccountName()));
+		};
 	}
 
 	@Bean

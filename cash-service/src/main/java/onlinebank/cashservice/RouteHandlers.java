@@ -1,5 +1,6 @@
 package onlinebank.cashservice;
 
+import onlinebank.cashservice.model.CashAccount;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -17,13 +18,17 @@ import java.time.Duration;
 public class RouteHandlers {
 
     public Mono<ServerResponse> byId(ServerRequest serverRequest) {
-        return ServerResponse.ok().body(Mono.just("A Single mono Response"), String.class);
+        CashAccount.builder().accountName("").macId("mac").build();
+        return ServerResponse.ok().body(Mono.just(CashAccount.builder().accountName("TestName")
+                .availableBalance(100)
+                .balance(120)
+                .build()), CashAccount.class);
     }
 
     public Mono<ServerResponse> all(ServerRequest serverRequest) {
-        String[] theValues = new String[]{"First value", "Second value", "Third value", "Fourth value"};
-        Flux<String> flux = Flux.fromArray(theValues).delayElements(Duration.ofSeconds(1));
-        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(flux, String.class);
+        CashAccount[] theValues = new CashAccount[] {new CashAccount(), new CashAccount()};
+        Flux<CashAccount> flux = Flux.fromArray(theValues).delayElements(Duration.ofSeconds(1));
+        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(flux, CashAccount.class);
     }
 
 }
