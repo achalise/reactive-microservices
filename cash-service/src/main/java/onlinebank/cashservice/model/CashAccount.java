@@ -13,10 +13,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Builder
 public class CashAccount {
     private String id;
-    private String macId;
+    private String userId;
     private String accountNumber;
     private String bsbCode;
     private String accountName;
     private long balance;
     private long availableBalance;
+    private String accountType;
+    private double interestRate;
 }

@@ -14,6 +14,9 @@ import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -46,14 +49,28 @@ public class CashServiceApplication {
 
 	@Bean
 	CommandLineRunner runner(CashAccountRepository repository) {
-		CashAccount account = new CashAccount();
-		account.setAccountName("Arun");
+		//Creating test accounts
+		List<CashAccount> accounts = new ArrayList<>();
+		IntStream.range(0, 3).forEach(i -> accounts.add(buildCashAccount(i)));
 		return (s) -> {
 			repository.deleteAll()
-					  .doOnSuccess(Void -> repository.save(account))
-					  .compose(Void -> repository.findAll())
-					   .subscribe(cashAccount -> System.out.println(cashAccount.getAccountName()));
+					.thenMany(repository.saveAll(accounts))
+					.thenMany(repository.findAll())
+					.subscribe(cashAccount -> {System.out.println("The account retrieved: " + cashAccount);});
 		};
+	}
+
+	private CashAccount buildCashAccount(int index) {
+		String prefix = "" + index;
+		return CashAccount.builder().accountName("Test User " + prefix)
+				.accountNumber("CASH_125487" + index)
+				.accountType("CASH")
+				.balance(2000 + index)
+				.interestRate(2.3 + index)
+				.bsbCode("111234")
+				.id(UUID.randomUUID().toString())
+				.userId("user" + prefix)
+				.build();
 	}
 
 	@Bean
@@ -76,6 +93,6 @@ public class CashServiceApplication {
 	@Bean
 	RouterFunction<?> routes(RouteHandlers routeHandlers) {
 		return RouterFunctions.route(RequestPredicates.GET("/all"), routeHandlers::all)
-				.andRoute(RequestPredicates.GET("/account/{id}"), routeHandlers::byId);
+				.andRoute(RequestPredicates.GET("/account/{id}"), routeHandlers::byAccountNumber);
 	}
 }
