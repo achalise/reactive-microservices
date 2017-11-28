@@ -93,6 +93,6 @@ public class CashServiceApplication {
 	@Bean
 	RouterFunction<?> routes(RouteHandlers routeHandlers) {
 		return RouterFunctions.route(RequestPredicates.GET("/all"), routeHandlers::all)
-				.andRoute(RequestPredicates.GET("/account/{id}"), routeHandlers::byAccountNumber);
+				.andRoute(RequestPredicates.GET("/account/{id}"), routeHandlers::byId);
 	}
 }

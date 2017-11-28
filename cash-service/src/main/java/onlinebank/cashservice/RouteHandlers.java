@@ -21,10 +21,10 @@ public class RouteHandlers {
         this.cashAccountService = cashAccountService;
     }
 
-    public Mono<ServerResponse> byAccountNumber(ServerRequest serverRequest) {
+    public Mono<ServerResponse> byId(ServerRequest serverRequest) {
         //TODO get account number from server request, and validate that the user has access to it
         String accountId = serverRequest.pathVariable("id");
-        Mono<CashAccount> accountById = cashAccountService.findByAccountNumber(accountId);
+        Mono<CashAccount> accountById = cashAccountService.findById(accountId);
         return ServerResponse.ok().body(accountById, CashAccount.class);
     }
 
