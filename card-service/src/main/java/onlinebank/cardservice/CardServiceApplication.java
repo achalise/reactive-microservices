@@ -13,7 +13,6 @@ import org.springframework.web.reactive.function.server.RouterFunctions;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.IntStream;
 
 @SpringBootApplication
 public class CardServiceApplication {
@@ -31,8 +30,7 @@ public class CardServiceApplication {
 
 	@Bean
 	CommandLineRunner runner(CardAccountRepository repository) {
-		List<CardAccount> cardAccounts = new ArrayList<>();
-		IntStream.range(0, 3).forEach(i -> cardAccounts.add(buildCardAccount(i)));
+		List<CardAccount> cardAccounts = testCardAccounts();
 		return (s) -> {
 			repository.deleteAll()
 					.thenMany(repository.saveAll(cardAccounts))
@@ -41,16 +39,38 @@ public class CardServiceApplication {
 		};
 	}
 
-	private CardAccount buildCardAccount(int i) {
-		return CardAccount.builder().accountType("CARD")
-				.accountName("Test User" + i)
-				.accountNumber("XXXXXXXXXXXX4237")
-				.userId("user" + i)
-				.bin("423567")
-				.interestRate(9.5 + i)
-				.id(UUID.randomUUID().toString())
-				.balance(2000 + i)
-				.build();
+	private List<CardAccount> testCardAccounts() {
+		List<CardAccount> accounts = new ArrayList<>();
+		accounts.add(firstTestAccount());
+		accounts.add(secondTestAccount());
+		return accounts;
 	}
 
+	private CardAccount firstTestAccount() {
+		CardAccount cardAccount = CardAccount.builder().accountType("CARD")
+				.accountNumber("XXXXXXXXXXXX4237")
+				.userId("jdoe")
+				.bin("412389")
+				.interestRate(9.5)
+				.balance(2000)
+				.accountName("Jo Doe")
+				.id(UUID.randomUUID().toString())
+				.build();
+		return cardAccount;
+
+	}
+
+	private CardAccount secondTestAccount() {
+		CardAccount cardAccount = CardAccount.builder().accountType("CARD")
+				.accountNumber("XXXXXXXXXXXX1548")
+				.userId("jdoe")
+				.bin("543189")
+				.interestRate(11.5)
+				.balance(1200)
+				.accountName("Jo Doe")
+				.id(UUID.randomUUID().toString())
+				.build();
+		return cardAccount;
+
+	}
 }
