@@ -32,7 +32,8 @@ public class RouteHandlers {
         CashAccount[] theValues = new CashAccount[] {new CashAccount(), new CashAccount()};
         //TODO get user from the auth token
         Flux<CashAccount> flux = cashAccountService.findByUserId("user0");
-        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(flux, CashAccount.class);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, CashAccount.class);
+        //return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(flux, CashAccount.class);
     }
 
 }
