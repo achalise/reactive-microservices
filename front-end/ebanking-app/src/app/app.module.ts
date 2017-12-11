@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { AppNavbarComponent } from './app-navbar/app-navbar.component';
 import { PaymentComponent } from './payment/payment.component';
 import { AppRoutingModule } from './app.routing.module';
+import { AccountService } from "./core/accounts/account.service";
+import { CommonInterceptor } from "./core/interceptors/common.interceptor"
+import { ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
 
 
 @NgModule({
@@ -15,9 +20,18 @@ import { AppRoutingModule } from './app.routing.module';
     PaymentComponent
   ],
   imports: [
-    BrowserModule, AppRoutingModule, NgbModule.forRoot()
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgbModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ AccountService, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CommonInterceptor,
+      multi: true
+  } ],
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

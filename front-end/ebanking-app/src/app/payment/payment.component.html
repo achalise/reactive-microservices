@@ -1,3 +1,13 @@
-<p>
-  payment works!
-</p>
+<h1>Make a payment</h1>
+<form [formGroup]="paymentForm">
+  <div class="form-group">
+    <label>From account:</label>
+    <input type="text" class="form-control" placeholder="Enter from account .." formControlName="fromAccount">
+  </div>
+
+  <div class="form-group">
+    <label>To account:</label>
+    <input type="text" class="form-control" placeholder="Enter to account ..">
+  </div>
+  {{paymentForm.value | json}}
+</form>
