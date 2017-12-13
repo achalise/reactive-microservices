@@ -38,10 +38,19 @@ export class PaymentComponent implements OnInit, OnChanges {
     console.log(`new value ${this.paymentForm}`);
   }
 
+  accountSelected(event: Account) {
+    console.log(`Account selected was `, event.accountName);
+  }
+
+  payeeSelected(event: Account) {
+    console.log(`Payee selected was`, event);
+  }
+
 
   private createForm() {
     this.paymentForm = this.fb.group({
-      fromAccount: 'some'
+      fromAccount: 'some',
+      toAccount: ''
     });
   }
 

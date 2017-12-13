@@ -11,13 +11,17 @@ import { CommonInterceptor } from "./core/interceptors/common.interceptor"
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { FromAccountComponent } from './payment/from-account/from-account.component';
+import { ToAccountComponent } from './payment/to-account/to-account.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AppNavbarComponent,
-    PaymentComponent
+    PaymentComponent,
+    FromAccountComponent,
+    ToAccountComponent
   ],
   imports: [
     BrowserModule,

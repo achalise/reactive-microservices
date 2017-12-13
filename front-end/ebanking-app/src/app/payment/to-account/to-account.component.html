@@ -1,0 +1,9 @@
+<ng-template #rt let-r="result" let-t="term">
+  <div>{{ r.accountName }} | {{r.accountType}} | {{r.balanceAvailable}}</div>
+</ng-template>
+
+<div [formGroup]="group">
+  <input type="text" class="form-control" id="toAccount" [(ngModel)]="model" formControlName="toAccount"
+         (ngModelChange)="itemSelected($event)" [ngbTypeahead]="search" [inputFormatter]="formatter"
+         [resultTemplate]="rt" placeholder="{{placeholder}}">
+</div>

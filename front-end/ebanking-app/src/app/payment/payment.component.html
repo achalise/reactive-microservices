@@ -2,12 +2,18 @@
 <form [formGroup]="paymentForm">
   <div class="form-group">
     <label>From account:</label>
-    <input type="text" class="form-control" placeholder="Enter from account .." formControlName="fromAccount">
+    <app-from-account id="formGroupExampleInput"
+                      (onItemSelected)="accountSelected($event)"
+                      [group]="paymentForm"
+                      [accounts]="fromAccounts"
+                      [placeholder]="'Account your are paying from'"></app-from-account>
   </div>
 
   <div class="form-group">
     <label>To account:</label>
-    <input type="text" class="form-control" placeholder="Enter to account ..">
+    <app-to-account [accounts]="fromAccounts"
+                    (onItemSelected)="payeeSelected($event)"
+                    [group]="paymentForm"
+                    [placeholder]="'Account or biller you are paying to'"></app-to-account>
   </div>
-  {{fromAccounts | json}}
 </form>
