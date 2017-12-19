@@ -29,7 +29,8 @@ public class AccountHandler {
     }
 
     Mono<ServerResponse> accountById(ServerRequest request) {
-        Mono<String> account = cashAccountService.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class);
+        String accountId = request.pathVariable("id");
+        Mono<String> account = cashAccountService.get().uri("/account/{id}", accountId).retrieve().bodyToMono(String.class);
         return ServerResponse.ok().body(account, String.class);
     }
 

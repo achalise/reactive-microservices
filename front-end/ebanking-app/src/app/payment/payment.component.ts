@@ -16,8 +16,12 @@ export class PaymentComponent implements OnInit, OnChanges {
   private paymentForm: FormGroup;
   constructor(private accountService: AccountService, private fb: FormBuilder) {
     this.paymentRequest = {
-
-    }
+      fromAccount: null,
+      toAccount: null,
+      startDate: null,
+      amount: null,
+      notes: null
+    };
     this.createForm();
 
     this.paymentForm.get('fromAccount').valueChanges.forEach(s => console.log(s));
@@ -39,6 +43,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   }
 
   accountSelected(event: Account) {
+    console.log(`The form: `, this.paymentForm);
     console.log(`Account selected was `, event.accountName);
   }
 
@@ -49,8 +54,11 @@ export class PaymentComponent implements OnInit, OnChanges {
 
   private createForm() {
     this.paymentForm = this.fb.group({
-      fromAccount: 'some',
-      toAccount: ''
+      fromAccount: this.paymentRequest.fromAccount,
+      toAccount: this.paymentRequest.toAccount,
+      startDate: this.paymentRequest.startDate,
+      amount: this.paymentRequest.amount,
+      notes: this.paymentRequest.notes
     });
   }
 
