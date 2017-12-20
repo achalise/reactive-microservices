@@ -14,7 +14,7 @@ export class AccountService {
 
   getFromAccounts(): Observable<Account[]> {
     const rootUrl = `http://192.168.99.100:31472/all`
-    return this.http.get<IAccountListResponse>('api')
+    return this.http.get<IAccountListResponse>('api/accounts')
         .map(d => d.cardAccounts.concat(d.cashAccounts))
         .map(d => this.transForm(d));
   }

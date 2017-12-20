@@ -13,6 +13,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FromAccountComponent } from './payment/from-account/from-account.component';
 import { ToAccountComponent } from './payment/to-account/to-account.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ToAccountComponent } from './payment/to-account/to-account.component';
     AppNavbarComponent,
     PaymentComponent,
     FromAccountComponent,
-    ToAccountComponent
+    ToAccountComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

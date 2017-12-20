@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th>Nickname/Type</th>
+    <th>BSB/Details</th>
+    <th>Account number</th>
+    <th>Balance</th>
+    <th>Available funds</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let account of accounts; let i = index">
+    <td>{{account.accountType}}</td>
+    <td>{{account.bsbCode ? account.bsbCode : 'Rewards'}}</td>
+    <td>{{account.accountNumber}}</td>
+    <td>{{account.balance}}</td>
+    <td>{{account.availableBalance}}</td>
+  </tr>
+  </tbody>
+</table>
