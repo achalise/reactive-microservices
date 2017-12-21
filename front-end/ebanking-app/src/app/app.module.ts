@@ -14,7 +14,10 @@ import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { FromAccountComponent } from './payment/from-account/from-account.component';
 import { ToAccountComponent } from './payment/to-account/to-account.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
+import { StoreModule } from "@ngrx/store";
+import { ReduxExampleComponent } from './redux-example/redux-example.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducer } from './redux-example/reducer/counter';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     PaymentComponent,
     FromAccountComponent,
     ToAccountComponent,
-    DashboardComponent
+    DashboardComponent,
+    ReduxExampleComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    StoreModule.forRoot({counter: reducer}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25 //  Retains last 25 states
+    })
   ],
   providers: [ AccountService, {
       provide: HTTP_INTERCEPTORS,
