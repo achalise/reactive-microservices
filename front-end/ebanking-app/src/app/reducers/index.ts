@@ -1,3 +1,7 @@
+import {Account} from "../core/accounts/account";
+
 export interface State {
-    counter: number
+    counter: number,
+    accounts: Account[],
+    accountLoading: boolean
 }

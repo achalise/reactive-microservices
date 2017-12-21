@@ -18,6 +18,9 @@ import { StoreModule } from "@ngrx/store";
 import { ReduxExampleComponent } from './redux-example/redux-example.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducer } from './redux-example/reducer/counter';
+import { AccountEffects } from "./dashboard/state/account.effects";
+import {EffectsModule} from "@ngrx/effects";
+import {accountsReducer} from "./dashboard/state/accounts.reducer";
 
 @NgModule({
   declarations: [
@@ -36,12 +39,13 @@ import { reducer } from './redux-example/reducer/counter';
     ReactiveFormsModule,
     FormsModule,
     NgbModule.forRoot(),
-    StoreModule.forRoot({counter: reducer}),
+    StoreModule.forRoot({counter: reducer, accounts: accountsReducer}),
+    EffectsModule.forRoot([AccountEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     })
   ],
-  providers: [ AccountService, {
+  providers: [ AccountService, AccountEffects, {
       provide: HTTP_INTERCEPTORS,
       useClass: CommonInterceptor,
       multi: true

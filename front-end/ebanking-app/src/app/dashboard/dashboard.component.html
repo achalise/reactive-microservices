@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let account of accounts; let i = index">
+  <tr *ngFor="let account of accounts$ | async; let i = index">
     <td>{{account.accountType}}</td>
     <td>{{account.bsbCode ? account.bsbCode : 'Rewards'}}</td>
     <td>{{account.accountNumber}}</td>
