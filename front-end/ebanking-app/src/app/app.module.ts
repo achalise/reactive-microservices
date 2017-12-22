@@ -21,6 +21,7 @@ import { reducer } from './redux-example/reducer/counter';
 import { AccountEffects } from "./dashboard/state/account.effects";
 import {EffectsModule} from "@ngrx/effects";
 import {accountsReducer} from "./dashboard/state/accounts.reducer";
+import { NavSearchComponent } from './app-navbar/nav-search/nav-search.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {accountsReducer} from "./dashboard/state/accounts.reducer";
     FromAccountComponent,
     ToAccountComponent,
     DashboardComponent,
-    ReduxExampleComponent
+    ReduxExampleComponent,
+    NavSearchComponent
   ],
   imports: [
     BrowserModule,

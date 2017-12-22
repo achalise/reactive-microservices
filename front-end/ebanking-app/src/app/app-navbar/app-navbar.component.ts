@@ -9,6 +9,11 @@ export class AppNavbarComponent implements OnInit {
 
   constructor() { }
 
+  open:boolean;
+
+  toggle() {
+    this.open = !this.open;
+  }
   ngOnInit() {
   }
 
