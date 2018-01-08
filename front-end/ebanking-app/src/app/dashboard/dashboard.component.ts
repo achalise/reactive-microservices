@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from "../core/accounts/account.service";
 import { Account } from "../core/accounts/account";
-import { State } from "../reducers";
+import * as appState from "../reducers";
 import { Store } from "@ngrx/store";
 import { RequestAccounts } from "./state/account.actions";
 import { Observable } from "rxjs/Observable";
@@ -13,14 +13,15 @@ import { Observable } from "rxjs/Observable";
 })
 export class DashboardComponent implements OnInit {
 
-  accounts: Account[] = [];
   accounts$: Observable<Account[]>;
 
-  constructor(private accountService: AccountService, private store: Store<State>) { }
+  constructor(private accountService: AccountService, private store: Store<appState.State>) { }
 
   ngOnInit() {
     this.store.dispatch(new RequestAccounts());
-    this.accounts$ = this.store.select('accounts').map(t => t.accounts);
+    this.accounts$ = this.store.select('accounts').map((t: appState.AccountsState) => {
+        return t.accounts;
+    });
   }
 
 }

@@ -22,6 +22,9 @@ import { AccountEffects } from "./dashboard/state/account.effects";
 import {EffectsModule} from "@ngrx/effects";
 import {accountsReducer} from "./dashboard/state/accounts.reducer";
 import { NavSearchComponent } from './app-navbar/nav-search/nav-search.component';
+import {PaymentGuard} from "./payment/state/payment.guard";
+import {paymentRequestReducer} from "./payment/state/payment.request.reducer";
+import {payeesReducer} from './dashboard/state/payees.reducer';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,7 @@ import { NavSearchComponent } from './app-navbar/nav-search/nav-search.component
     ReactiveFormsModule,
     FormsModule,
     NgbModule.forRoot(),
-    StoreModule.forRoot({counter: reducer, accounts: accountsReducer}),
+    StoreModule.forRoot({counter: reducer, accounts: accountsReducer, payees: payeesReducer, paymentRequest: paymentRequestReducer}),
     EffectsModule.forRoot([AccountEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
@@ -51,7 +54,7 @@ import { NavSearchComponent } from './app-navbar/nav-search/nav-search.component
       provide: HTTP_INTERCEPTORS,
       useClass: CommonInterceptor,
       multi: true
-  } ],
+  }, PaymentGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

@@ -5,7 +5,8 @@ import {HttpHandler} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {HttpEvent} from "@angular/common/http";
 import {HttpResponse} from "@angular/common/http";
-import { accountListResponse } from './test.payloads';
+import { accountListResponse, payeeResponse } from './test.payloads';
+import {environment} from "../../../environments/environment";
 
 @Injectable()
 export class CommonInterceptor implements HttpInterceptor {
@@ -16,20 +17,31 @@ export class CommonInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(`Intercepting the request`);
 
-        return new Observable(resp => {
-          resp.next(this.createResponse(req));
-          resp.complete();
-        });
-
-        //return next.handle(req);
+        if(environment.local) {
+            return new Observable(resp => {
+                resp.next(this.createResponse(req));
+                resp.complete();
+            });
+        } else {
+            return next.handle(req);
+        }
     }
 
     private createResponse(req: HttpRequest<any>): HttpResponse<any> {
-        let resp = new HttpResponse({
-            status: 200,
-            body: accountListResponse
-        });
-        return resp;
+        let rsp: HttpResponse<any>;
+        const url = req.url;
+        if(url === 'api/accounts') {
+            rsp = new HttpResponse({
+                status: 200,
+                body: accountListResponse
+            });
+        } else {
+            rsp = new HttpResponse<any>({
+                status: 200,
+                body: payeeResponse
+            });
+        }
+        return rsp;
     }
 }
 

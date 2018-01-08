@@ -1,13 +1,21 @@
 <ng-template #rt let-r="result" let-t="term">
-  <div>{{ r.accountName }} | {{r.accountType}} | {{r.balanceAvailable}}</div>
+  <div>{{ r.accountName }} | {{r.accountType}} | {{r.accountNumber}} | {{r.availableBalance}}</div>
+  <div>
+    Additional information here with some style applied
+  </div>
+  <div>
+    <p *ngIf="r.accountType == 'CARD'">
+      This is a card account ..
+    </p>
+  </div>
 </ng-template>
 
 <div [formGroup]="group">
-  <input type="text" class="form-control" id="formGroupExampleInput" [(ngModel)]="model" formControlName="fromAccount"
-         (ngModelChange)="itemSelected($event)" [ngbTypeahead]="search" [inputFormatter]="formatter"
-         [resultTemplate]="rt" placeholder="{{placeholder}}">
+  <input type="text" class="form-control" id="formGroupExampleInput" [ngModel]="fromAccount" formControlName="fromAccount"
+         (ngModelChange)="itemSelected($event)" [ngbTypeahead]="searchTwo" [inputFormatter]="formatter"
+         [resultTemplate]="rt" placeholder="{{placeholder}}" (focus)="focus$.next($event.target.value)"
+         (click)="click$.next($event.target.value)" #instance="ngbTypeahead">
 </div>
-{{fromAccounts|json}}
 
 
 

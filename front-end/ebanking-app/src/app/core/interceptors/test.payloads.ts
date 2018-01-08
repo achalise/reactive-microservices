@@ -35,3 +35,29 @@ export const accountListResponse =
                 "interestRate": 11.5
             }]
     };
+
+export const payeeResponse = [
+        {
+            "id": "e31521d1-0c61-4263-a830-1d5c7c10bd0f",
+            "userId": "user0",
+            "accountNumber": "CASH_1254870",
+            "bsbCode": "111234",
+            "accountName": "Test User 0",
+            "payeeType": "SELF"
+        },
+        {
+            "id": "c889ca24-c882-41c1-bd1a-052bf5303587",
+            "userId": "user0",
+            "accountNumber": "XXXXXXXXXXXX4237",
+            "accountName": "Joe Doe",
+            "payeeType": "SELF"
+        },
+        {
+            "id": "c889ca24-c882-41c1-bd1a-052bf5303587",
+            "userId": "user0",
+            "billerCode": "321346",
+            "accountNumber": "1236767123",
+            "accountName": "Sydney Water",
+            "payeeType": "BILLER"
+        }
+];

@@ -1,19 +1,16 @@
 import {Injectable} from "@angular/core";
 import { Actions, Effect } from "@ngrx/effects";
 import {AccountService} from "../../core/accounts/account.service";
+
 import {
-    AccountActions, RequestAccounts, AccountActionTypes, RequestAccountsComplete,
-    RequestPayeesComplete
-} from "./account.actions";
+    PayeeActionTypes, RequestPayeesComplete
+} from "./payee.actions";
+
 import {Observable} from "rxjs";
 import {Action} from "@ngrx/store";
 import {
-    debounceTime,
     map,
-    switchMap,
-    skip,
-    takeUntil,
-    catchError,
+    switchMap
 } from 'rxjs/operators';
 
 @Injectable()
@@ -25,12 +22,7 @@ export class AccountEffects {
     ) { }
 
     @Effect()
-    loadAccounts$: Observable<Action> = this.actions$.ofType(AccountActionTypes.RequestAccounts).pipe(
-        switchMap(() => this.accountService.getFromAccounts()),
-        map(accounts => new RequestAccountsComplete(accounts)));
-
-    @Effect()
-    loadPayees$: Observable<Action> = this.actions$.ofType(AccountActionTypes.RequestPayees).pipe(
+    loadPayees$: Observable<Action> = this.actions$.ofType(PayeeActionTypes.RequestPayees).pipe(
         switchMap(() => this.accountService.getPayees()),
         map(payees => new RequestPayeesComplete(payees)));
 }

@@ -5,14 +5,16 @@
     <app-from-account id="formGroupExampleInput"
                       (onItemSelected)="accountSelected($event)"
                       [group]="paymentForm"
-                      [accounts]="fromAccounts"
+                      [accounts]="fromAccounts$ | async"
+                      [fromAccount]="fromAccount$ | async"
                       [placeholder]="'Account your are paying from'"></app-from-account>
   </div>
 
   <div class="form-group">
     <label>To account:</label>
-    <app-to-account [accounts]="fromAccounts"
+    <app-to-account [payees]="toAccounts$ | async"
                     (onItemSelected)="payeeSelected($event)"
+                    [payee]="toAccount$ | async"
                     [group]="paymentForm"
                     [placeholder]="'Account or biller you are paying to'"></app-to-account>
   </div>
@@ -27,4 +29,9 @@
       </div>
     </div>
   </div>
+
+  <!--<div>-->
+    <!--<p>The payment request from the store: {{paymentRequest$ | async | json}}</p>-->
+    <!--<p>From account: {{fromAccount$| async | json}}</p>-->
+  <!--</div>-->
 </form>

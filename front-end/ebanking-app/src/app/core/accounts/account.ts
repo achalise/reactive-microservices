@@ -3,7 +3,7 @@ export class Account {
                  private userId: string,
                  public accountName: string,
                  public accountNumber: string,
-                 public accountType: string,
+                 public accountType: string, //TODO change to enum
                  public balance: number,
                  public availableBalance: number,
                  public interestRate: number,

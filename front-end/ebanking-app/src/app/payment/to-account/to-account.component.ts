@@ -1,9 +1,12 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {Account} from "../../core/accounts/account";
 import {FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operator/map";
 import {distinctUntilChanged} from "rxjs/operator/distinctUntilChanged";
+import {Payee} from "../../core/accounts/payee";
+import {Subject} from "rxjs/Subject";
+import {NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-to-account',
@@ -13,10 +16,10 @@ import {distinctUntilChanged} from "rxjs/operator/distinctUntilChanged";
 export class ToAccountComponent implements OnInit {
 
   @Input()
-  accounts: Account[] = [];
+  payees: Payee[] = [];
 
   @Output()
-  onItemSelected = new EventEmitter<Account>();
+  onItemSelected = new EventEmitter<Payee>();
 
   @Input()
   placeholder: string;
@@ -24,23 +27,29 @@ export class ToAccountComponent implements OnInit {
   @Input()
   group: FormGroup;
 
-  model: any;
-  previousValue: any;
+  @Input()
+  payee: Payee;
+
+  @ViewChild('instance') instance: NgbTypeahead;
+  focus$ = new Subject<string>();
+  click$ = new Subject<string>();
 
   constructor() { }
 
   ngOnInit() {
+    console.log(`Payees populated ${this.payees}`);
   }
 
-  search = (text$: Observable<string>) =>  map.call(
-      (distinctUntilChanged.call(text$)), term => term.length < 1 ? this.accounts : this.accounts.filter(v => v.displayName().toLowerCase().indexOf(term.toLowerCase()) > -1));
+  search = (text$: Observable<string>) => text$.merge(this.focus$)
+      .merge(this.click$.filter(() => !this.instance.isPopupOpen()))
+      .distinctUntilChanged()
+      .map(term => term === '' ? this.payees: this.payees.filter(v => v.displayName().toLowerCase().indexOf(term.toLowerCase()) > -1));
 
   formatter = (x: {displayName: () => string}) => x.displayName ? x.displayName() : "";
 
   itemSelected = (event) => {
-    if (event instanceof Account) {
+    if (event instanceof Payee) {
       this.onItemSelected.emit(event);
-      this.previousValue = event;
     }
   }
 
