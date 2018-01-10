@@ -61,3 +61,10 @@ export const payeeResponse = [
             "payeeType": "BILLER"
         }
 ];
+
+export const paymentResponse = {
+    status: 'SUCCESS',
+    errorCode: null,
+    transactionId: '123123RECEIPT',
+    transactionDateTime: new Date()
+}

@@ -16,6 +16,6 @@
          [resultTemplate]="rt" placeholder="{{placeholder}}" (focus)="focus$.next($event.target.value)"
          (click)="click$.next($event.target.value)" #instance="ngbTypeahead">
 </div>
-
-
-
+<div *ngIf="group.controls['fromAccount'].errors && ! group.controls['fromAccount'].pristine" class="alert alert-danger" role="alert">
+  <strong>From Account is required</strong> Please select account you want to pay from.
+</div>

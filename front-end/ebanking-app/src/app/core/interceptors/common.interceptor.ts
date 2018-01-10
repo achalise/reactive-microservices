@@ -5,7 +5,7 @@ import {HttpHandler} from "@angular/common/http";
 import {Observable} from "rxjs/Observable";
 import {HttpEvent} from "@angular/common/http";
 import {HttpResponse} from "@angular/common/http";
-import { accountListResponse, payeeResponse } from './test.payloads';
+import {accountListResponse, payeeResponse, paymentResponse} from './test.payloads';
 import {environment} from "../../../environments/environment";
 
 @Injectable()
@@ -34,6 +34,11 @@ export class CommonInterceptor implements HttpInterceptor {
             rsp = new HttpResponse({
                 status: 200,
                 body: accountListResponse
+            });
+        } else if(url === 'api/pay') {
+            rsp = new HttpResponse<any>({
+                status: 200,
+                body: paymentResponse
             });
         } else {
             rsp = new HttpResponse<any>({

@@ -25,6 +25,8 @@ import { NavSearchComponent } from './app-navbar/nav-search/nav-search.component
 import {PaymentGuard} from "./payment/state/payment.guard";
 import {paymentRequestReducer} from "./payment/state/payment.request.reducer";
 import {payeesReducer} from './dashboard/state/payees.reducer';
+import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
+import { PaymentService } from './core/payment/payment.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import {payeesReducer} from './dashboard/state/payees.reducer';
     ToAccountComponent,
     DashboardComponent,
     ReduxExampleComponent,
-    NavSearchComponent
+    NavSearchComponent,
+    PaymentConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -50,11 +53,11 @@ import {payeesReducer} from './dashboard/state/payees.reducer';
       maxAge: 25 //  Retains last 25 states
     })
   ],
-  providers: [ AccountService, AccountEffects, {
+  providers: [  AccountService, AccountEffects, {
       provide: HTTP_INTERCEPTORS,
       useClass: CommonInterceptor,
       multi: true
-  }, PaymentGuard ],
+  }, PaymentGuard, PaymentService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
