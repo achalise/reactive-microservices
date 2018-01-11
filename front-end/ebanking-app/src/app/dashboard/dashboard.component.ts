@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountService } from "../core/accounts/account.service";
 import { Account } from "../core/accounts/account";
 import * as appState from "../reducers";
 import { Store } from "@ngrx/store";
@@ -15,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
   accounts$: Observable<Account[]>;
 
-  constructor(private accountService: AccountService, private store: Store<appState.State>) { }
+  constructor(private store: Store<appState.State>) { }
 
   ngOnInit() {
     this.store.dispatch(new RequestAccounts());

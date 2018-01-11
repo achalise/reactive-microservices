@@ -54,7 +54,7 @@ export class PaymentComponent implements OnInit, OnChanges {
     this.paymentRequest$ = this.store.select('paymentRequest');
 
     this.store.dispatch(new RequestPayees());
-    this.store.dispatch(new InitPaymentRequest());
+    // this.store.dispatch(new InitPaymentRequest());
 
 
 

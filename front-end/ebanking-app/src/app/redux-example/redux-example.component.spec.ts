@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReduxExampleComponent } from './redux-example.component';
 
-describe('ReduxExampleComponent', () => {
+xdescribe('ReduxExampleComponent', () => {
   let component: ReduxExampleComponent;
   let fixture: ComponentFixture<ReduxExampleComponent>;
 

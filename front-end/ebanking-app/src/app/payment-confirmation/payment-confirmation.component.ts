@@ -13,11 +13,11 @@ import {SubmitPaymentRequest} from "../payment/state/payment.actions";
 })
 export class PaymentConfirmationComponent implements OnInit {
 
-  protected amount: number;
-  protected fromAccount: Account;
-  protected toAccount: Payee;
-  protected notes: string;
-  protected paymentDate: Date;
+  amount: number;
+  fromAccount: Account;
+  toAccount: Payee;
+  notes: string;
+  paymentDate: Date;
 
   constructor(private store: Store<appState.State>, private router: Router) { }
 
@@ -34,6 +34,10 @@ export class PaymentConfirmationComponent implements OnInit {
   submit() {
     console.log('submitted payment: ');
     this.store.dispatch(new SubmitPaymentRequest());
+  }
+
+  cancel() {
+    this.router.navigate(['pay']);
   }
 
 }
