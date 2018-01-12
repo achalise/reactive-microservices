@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
+import {Component, OnInit, OnChanges, ChangeDetectionStrategy} from '@angular/core';
 import {Account} from "../core/accounts/account";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
 import {AccountService} from "../core/accounts/account.service";
@@ -13,7 +13,6 @@ import {
 import { map } from "rxjs/operator/map";
 import { filter } from "rxjs/operator/filter";
 import "rxjs/add/operator/do";
-import {RequestPayees} from "../dashboard/state/account.actions";
 import {Payee} from "../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
@@ -22,7 +21,8 @@ import {PaymentStatus} from "../reducers";
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PaymentComponent implements OnInit, OnChanges {
 
@@ -52,11 +52,6 @@ export class PaymentComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.paymentRequest$ = this.store.select('paymentRequest');
-
-    this.store.dispatch(new RequestPayees());
-    // this.store.dispatch(new InitPaymentRequest());
-
-
 
     this.fromAccounts$ = this.store.select('accounts').map((t: appState.AccountsState) => t.accounts);
     this.fromAccount$ = map.call(filter.call(this.paymentRequest$, t => !!t), t => t.fromAccount);

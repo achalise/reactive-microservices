@@ -1,8 +1,8 @@
 import {Action} from "@ngrx/store";
 import {AccountActionTypes, RequestPayeesComplete} from "./account.actions";
-import {Payee} from "../../core/accounts/payee";
+import {PayeesState} from "../../reducers";
 
-export function payeesReducer(state: Payee[] = [], action: Action ) {
+export function payeesReducer(state: PayeesState, action: Action ) {
     switch (action.type) {
         case AccountActionTypes.RequestPayees:
             return {...state, payeesLoading: true};
