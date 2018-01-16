@@ -18,9 +18,9 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new RequestAccounts());
-    this.accounts$ = this.store.select('accounts').map((t: appState.AccountsState) => {
-        return t.accounts;
-    });
+    this.accounts$ = this.store.select('accounts')
+                        .filter(t => !!t)
+                        .map((t: appState.AccountsState) => t.accounts);
   }
 
 }

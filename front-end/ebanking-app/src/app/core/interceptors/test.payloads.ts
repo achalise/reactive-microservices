@@ -67,4 +67,15 @@ export const paymentResponse = {
     errorCode: null,
     transactionId: '123123RECEIPT',
     transactionDateTime: new Date()
+};
+
+export const loginSuccessResponse = {
+    status: 'SUCCESS',
+    message: null
+};
+
+export const loginFailureResponse = {
+    status: 'ERROR',
+    message: 'user or passwor not correct'
 }
+

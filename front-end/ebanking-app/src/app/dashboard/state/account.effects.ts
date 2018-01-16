@@ -52,6 +52,4 @@ export class AccountEffects {
         tap(() => {this.router.navigate(['dashboard'])}),
         map(() => new SubmitPaymentSuccessNavigate())
     );
-
-
 }

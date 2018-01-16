@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Account} from "../../core/accounts/account";
 import {FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
@@ -11,7 +11,8 @@ import {NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 @Component({
   selector: 'app-to-account',
   templateUrl: './to-account.component.html',
-  styleUrls: ['./to-account.component.scss']
+  styleUrls: ['./to-account.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToAccountComponent implements OnInit {
 

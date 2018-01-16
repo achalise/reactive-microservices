@@ -27,6 +27,13 @@ import {paymentRequestReducer} from "./payment/state/payment.request.reducer";
 import {payeesReducer} from './dashboard/state/payees.reducer';
 import { PaymentConfirmationComponent } from './payment-confirmation/payment-confirmation.component';
 import { PaymentService } from './core/payment/payment.service';
+import { LoginComponent } from './login/login.component';
+import { LoginLayoutComponent } from './login-layout/login-layout.component';
+import { HomeLayoutComponent } from './home-layout/home-layout.component';
+import {AuthGuard} from "./core/auth.guard";
+import { AuthService } from './core/common/auth.service';
+import {loginReducer} from "./login/state/login.reducer";
+import {LoginEffects} from "./login/state/login.effects";
 
 @NgModule({
   declarations: [
@@ -38,7 +45,10 @@ import { PaymentService } from './core/payment/payment.service';
     DashboardComponent,
     ReduxExampleComponent,
     NavSearchComponent,
-    PaymentConfirmationComponent
+    PaymentConfirmationComponent,
+    LoginComponent,
+    LoginLayoutComponent,
+    HomeLayoutComponent
   ],
   imports: [
     BrowserModule,
@@ -47,17 +57,23 @@ import { PaymentService } from './core/payment/payment.service';
     ReactiveFormsModule,
     FormsModule,
     NgbModule.forRoot(),
-    StoreModule.forRoot({counter: reducer, accounts: accountsReducer, payees: payeesReducer, paymentRequest: paymentRequestReducer}),
-    EffectsModule.forRoot([AccountEffects]),
+    StoreModule.forRoot({
+        counter: reducer,
+        accounts: accountsReducer,
+        payees: payeesReducer,
+        paymentRequest: paymentRequestReducer,
+        authState: loginReducer
+    }),
+    EffectsModule.forRoot([AccountEffects, LoginEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25 //  Retains last 25 states
     })
   ],
-  providers: [  AccountService, AccountEffects, {
+  providers: [  AccountService, AccountEffects, LoginEffects, {
       provide: HTTP_INTERCEPTORS,
       useClass: CommonInterceptor,
       multi: true
-  }, PaymentGuard, PaymentService ],
+  }, PaymentGuard, PaymentService, AuthGuard, AuthService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

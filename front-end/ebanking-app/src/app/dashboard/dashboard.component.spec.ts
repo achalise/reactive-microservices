@@ -22,7 +22,7 @@ describe('DashboardComponent', () => {
       declarations: [ DashboardComponent ],
       providers: [AccountService],
       imports: [HttpClientTestingModule,
-          StoreModule.forRoot({counter: reducer, accounts: accountsReducer, payees: payeesReducer, paymentRequest: paymentRequestReducer})]
+          StoreModule.forRoot({accounts: accountsReducer, payees: payeesReducer, paymentRequest: paymentRequestReducer})]
     })
     .compileComponents();
   }));
@@ -49,7 +49,6 @@ describe('DashboardComponent', () => {
       const successaction = new RequestAccountsComplete([new Account('134', 'test',
           'Test User Name', '123123', 'CASH', 1000, 4, 2)]);
       store.dispatch(successaction);
-      expect(store.dispatch).toHaveBeenCalledWith(successaction);
       component.accounts$.subscribe(accounts => {
           expect(accounts.length).toEqual(1);
           expect(accounts[0].accountNumber).toEqual('123123');

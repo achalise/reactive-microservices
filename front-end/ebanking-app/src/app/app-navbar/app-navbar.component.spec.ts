@@ -27,7 +27,6 @@ describe('AppNavbarComponent', () => {
     expect(component).toBeTruthy();
     const s = fixture.debugElement.nativeElement;
     const ts = s.querySelectorAll('a');
-    console.log(ts.length);
     expect(ts[0].text).toEqual('My Online Bank');
     expect(ts[3].textContent.trim()).toEqual('Disabled');
   });

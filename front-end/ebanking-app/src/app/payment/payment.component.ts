@@ -53,17 +53,17 @@ export class PaymentComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.paymentRequest$ = this.store.select('paymentRequest');
 
-    this.fromAccounts$ = this.store.select('accounts').map((t: appState.AccountsState) => t.accounts);
+    this.fromAccounts$ = this.store.select('accounts').filter(t => !!t).map((t: appState.AccountsState) => t.accounts);
     this.fromAccount$ = map.call(filter.call(this.paymentRequest$, t => !!t), t => t.fromAccount);
 
-    this.toAccounts$ = this.store.select('payees').map((t: appState.PayeesState) => t.payees);
+    this.toAccounts$ = this.store.select('payees').filter(t => !!t).map((t: appState.PayeesState) => t.payees);
     this.toAccount$ = this.paymentRequest$.filter(t => !!t).map(t => t.toAccount);
 
     this.startDate$ = this.paymentRequest$.filter(t => !!t).map(t => t.paymentDate);
     this.amount$ = this.paymentRequest$.filter(t => !!t).map(t => t.amount);
     this.notes$ = this.paymentRequest$.filter(t => !!t).map(t => t.notes);
 
-    this.paymentRequest$.filter(t => !!t).subscribe(p => {
+    const subs = this.paymentRequest$.filter(t => !!t).subscribe(p => {
         this.notes = p.notes;
     });
     this.createForm();

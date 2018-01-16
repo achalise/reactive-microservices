@@ -1,9 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentConfirmationComponent } from './payment-confirmation.component';
-import {payeesReducer} from "../dashboard/state/payees.reducer";
-import {accountsReducer} from "../dashboard/state/accounts.reducer";
-import {reducer} from "../redux-example/reducer/counter";
 import {Store, StoreModule} from "@ngrx/store";
 import {paymentRequestReducer} from "../payment/state/payment.request.reducer";
 import {AppRoutingModule} from "../app.routing.module";
@@ -14,6 +11,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {APP_BASE_HREF} from "@angular/common";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 import {State} from "../reducers";
+import {LoginLayoutComponent} from "../login-layout/login-layout.component";
+import {LoginComponent} from "../login/login.component";
+import {HomeLayoutComponent} from "../home-layout/home-layout.component";
 
 describe('PaymentConfirmationComponent', () => {
   let component: PaymentConfirmationComponent;
@@ -21,8 +21,9 @@ describe('PaymentConfirmationComponent', () => {
   let store: Store<State>
 
   beforeEach(async(() => {
+    //TODO use mocking routing module, so that following declaration will not need to include all these additional components
     TestBed.configureTestingModule({
-      declarations: [ PaymentConfirmationComponent, DashboardComponent, PaymentComponent ],
+      declarations: [ PaymentConfirmationComponent, DashboardComponent, PaymentComponent, LoginLayoutComponent, LoginComponent, HomeLayoutComponent ],
       imports: [
           HttpClientTestingModule,
           AppRoutingModule,
