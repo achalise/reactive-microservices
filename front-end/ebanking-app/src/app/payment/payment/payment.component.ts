@@ -1,22 +1,24 @@
-import {Component, OnInit, OnChanges, ChangeDetectionStrategy} from '@angular/core';
-import {Account} from "../core/accounts/account";
+import {Component, OnInit, OnChanges, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
+import {Account} from "../../core/accounts/account";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
-import {AccountService} from "../core/accounts/account.service";
-import * as appState from "../reducers";
+import {AccountService} from "../../core/accounts/account.service";
+import * as appState from "../../reducers/index";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
 import {
     InitPaymentRequest, UpdateFromAccount, UpdatePaymentAmount, UpdatePaymentDate, UpdatePaymentNotes,
     UpdatePaymentStatus,
     UpdateToAccount
-} from "./state/payment.actions";
+} from "../state/payment.actions";
 import { map } from "rxjs/operator/map";
 import { filter } from "rxjs/operator/filter";
 import "rxjs/add/operator/do";
-import {Payee} from "../core/accounts/payee";
+import "rxjs/add/operator/takeUntil";
+import {Payee} from "../../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
-import {PaymentStatus} from "../reducers";
+import {PaymentStatus} from "../../reducers/index";
+import {Subject} from "rxjs/Subject";
 
 @Component({
   selector: 'app-payment',
@@ -24,7 +26,7 @@ import {PaymentStatus} from "../reducers";
   styleUrls: ['./payment.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PaymentComponent implements OnInit, OnChanges {
+export class PaymentComponent implements OnInit, OnChanges, OnDestroy {
 
   protected paymentForm: FormGroup;
 
@@ -42,6 +44,7 @@ export class PaymentComponent implements OnInit, OnChanges {
   protected notes: string;
 
 
+  private unsubscribe: Subject<void> = new Subject<void>();
 
   constructor( private accountService: AccountService,
                private fb: FormBuilder,
@@ -51,23 +54,28 @@ export class PaymentComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.paymentRequest$ = this.store.select('paymentRequest');
+    this.paymentRequest$ = this.store.select('paymentRequest').filter(t => !!t);
 
     this.fromAccounts$ = this.store.select('accounts').filter(t => !!t).map((t: appState.AccountsState) => t.accounts);
     this.fromAccount$ = map.call(filter.call(this.paymentRequest$, t => !!t), t => t.fromAccount);
 
     this.toAccounts$ = this.store.select('payees').filter(t => !!t).map((t: appState.PayeesState) => t.payees);
-    this.toAccount$ = this.paymentRequest$.filter(t => !!t).map(t => t.toAccount);
+    this.toAccount$ = this.paymentRequest$.map(t => t.toAccount);
 
-    this.startDate$ = this.paymentRequest$.filter(t => !!t).map(t => t.paymentDate);
-    this.amount$ = this.paymentRequest$.filter(t => !!t).map(t => t.amount);
-    this.notes$ = this.paymentRequest$.filter(t => !!t).map(t => t.notes);
+    this.startDate$ = this.paymentRequest$.map(t => t.paymentDate);
+    this.amount$ = this.paymentRequest$.map(t => t.amount);
+    this.notes$ = this.paymentRequest$.map(t => t.notes);
 
-    const subs = this.paymentRequest$.filter(t => !!t).subscribe(p => {
+    this.paymentRequest$.takeUntil(this.unsubscribe).subscribe(p => {
         this.notes = p.notes;
     });
     this.createForm();
 
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   ngOnChanges(): void {

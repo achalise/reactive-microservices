@@ -2,18 +2,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentConfirmationComponent } from './payment-confirmation.component';
 import {Store, StoreModule} from "@ngrx/store";
-import {paymentRequestReducer} from "../payment/state/payment.request.reducer";
-import {AppRoutingModule} from "../app.routing.module";
-import {DashboardComponent} from "../dashboard/dashboard.component";
+import {paymentRequestReducer} from "../state/payment.request.reducer";
+import {AppRoutingModule} from "../../app.routing.module";
+import {DashboardComponent} from "../../dashboard/dashboard.component";
 import {PaymentComponent} from "../payment/payment.component";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {APP_BASE_HREF} from "@angular/common";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {State} from "../reducers";
-import {LoginLayoutComponent} from "../login-layout/login-layout.component";
-import {LoginComponent} from "../login/login.component";
-import {HomeLayoutComponent} from "../home-layout/home-layout.component";
+import {State} from "../../reducers/index";
+import {LoginLayoutComponent} from "../../login-layout/login-layout.component";
+import {LoginComponent} from "../../login/login.component";
+import {HomeLayoutComponent} from "../../home-layout/home-layout.component";
 
 describe('PaymentConfirmationComponent', () => {
   let component: PaymentConfirmationComponent;
@@ -21,7 +21,7 @@ describe('PaymentConfirmationComponent', () => {
   let store: Store<State>
 
   beforeEach(async(() => {
-    //TODO use mocking routing module, so that following declaration will not need to include all these additional components
+    //TODO use mock routing module, so that following declaration will not need to include all these additional components
     TestBed.configureTestingModule({
       declarations: [ PaymentConfirmationComponent, DashboardComponent, PaymentComponent, LoginLayoutComponent, LoginComponent, HomeLayoutComponent ],
       imports: [

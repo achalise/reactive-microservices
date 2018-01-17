@@ -77,5 +77,5 @@ export const loginSuccessResponse = {
 export const loginFailureResponse = {
     status: 'ERROR',
     message: 'user or passwor not correct'
-}
+};
 
