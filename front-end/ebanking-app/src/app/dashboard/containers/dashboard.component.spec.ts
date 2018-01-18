@@ -1,16 +1,15 @@
 import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing';
 
 import { DashboardComponent } from './dashboard.component';
-import {AccountService} from "../core/accounts/account.service";
+import {AccountService} from "../../core/accounts/account.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {payeesReducer} from "./state/payees.reducer";
-import {accountsReducer} from "./state/accounts.reducer";
-import {reducer} from "../redux-example/reducer/counter";
+import {payeesReducer} from "../../payment/state/payees.reducer";
+import {accountsReducer} from "../reducers/accounts.reducer";
 import {Store, StoreModule} from "@ngrx/store";
-import {paymentRequestReducer} from "../payment/state/payment.request.reducer";
-import {State} from "../core/reducers";
-import {RequestAccounts, RequestAccountsComplete} from "./state/account.actions";
-import {Account} from "../core/accounts/account";
+import {paymentRequestReducer} from "../../payment/state/payment.request.reducer";
+import {State} from "../../reducer/index";
+import {RequestAccounts, RequestAccountsComplete} from "../reducers/account.actions";
+import {Account} from "../../core/accounts/account";
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;

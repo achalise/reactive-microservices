@@ -1,4 +1,4 @@
-import {IAuthenticationState} from "../../../core/reducers/index";
+import {IAuthenticationState} from "../../../reducer/index";
 import {LoginActions, LoginActionTypes, LoginError} from "./login.actions";
 import {AuthStatus} from "../../../core/models/login.info";
 

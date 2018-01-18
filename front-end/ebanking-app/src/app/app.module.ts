@@ -6,11 +6,11 @@ import { CommonInterceptor } from "./core/interceptors/common.interceptor"
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { AccountEffects } from "./dashboard/state/account.effects";
+import { AccountEffects } from "./dashboard/reducers/account.effects";
 import { EffectsModule } from "@ngrx/effects";
-import { accountsReducer } from "./dashboard/state/accounts.reducer";
+import { accountsReducer } from "./dashboard/reducers/accounts.reducer";
 import { paymentRequestReducer } from "./payment/state/payment.request.reducer";
-import { payeesReducer } from './dashboard/state/payees.reducer';
+import { payeesReducer } from './payment/state/payees.reducer';
 import { loginReducer } from "./navigation/login/state/login.reducer";
 import { LoginEffects } from "./navigation/login/state/login.effects";
 import { DashboardModule } from "./dashboard/dashboard.module";
@@ -28,7 +28,6 @@ import { CoreModule } from "./core/core.module";
     CoreModule.forRoot(),
     NgbModule.forRoot(),
     StoreModule.forRoot({
-        accounts: accountsReducer,
         payees: payeesReducer,
         paymentRequest: paymentRequestReducer,
         authState: loginReducer

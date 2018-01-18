@@ -1,19 +1,13 @@
-import {Account} from "../accounts/account";
-import {Payee} from "../accounts/payee";
+import {Account} from "../core/accounts/account";
+import {Payee} from "../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {AuthStatus} from "../models/login.info";
+import {AuthStatus} from "../core/models/login.info";
 
 export interface State {
     counter: number,
     authState: IAuthenticationState,
-    accounts: AccountsState,
     payees: PayeesState,
     paymentRequest: PaymentRequest
-}
-
-export interface AccountsState {
-    accounts: Account[],
-    accountLoading: boolean
 }
 
 export interface PayeesState {

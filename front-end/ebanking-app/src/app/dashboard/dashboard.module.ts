@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {DashboardComponent} from "./dashboard.component";
-import { AccountEffects } from "./state/account.effects";
+import {DashboardComponent} from "./containers/dashboard.component";
+import { StoreModule } from "@ngrx/store";
+import { accountsReducer } from "./reducers/accounts.reducer";
 
 @NgModule({
     imports: [
-        CommonModule
+        CommonModule,
+        StoreModule.forFeature('accounts', accountsReducer)
     ],
     declarations: [DashboardComponent],
     providers: []
