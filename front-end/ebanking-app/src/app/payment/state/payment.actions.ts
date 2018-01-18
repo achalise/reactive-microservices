@@ -2,7 +2,7 @@ import {Action} from "@ngrx/store";
 import {Account} from "../../core/accounts/account";
 import {Payee} from "../../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {PaymentStatus} from "../../reducers";
+import {PaymentStatus} from "../../core/reducers";
 import {IPaymentResponse} from "../../core/payment/payment.response";
 
 export enum PaymentActionTypes {

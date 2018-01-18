@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {IAuthenticationState, State} from "../reducers";
+import {IAuthenticationState, State} from "../../core/reducers/index";
 import {Store} from "@ngrx/store";
 import {LoginRequest} from "./state/login.actions";
-import {LoginInfo} from "../core/models/login.info";
+import {LoginInfo} from "../../core/models/login.info";
 import {Observable} from "rxjs/Observable";
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as appState from "../../reducers/index";
+import * as appState from "../../core/reducers/index";
 import {Store} from "@ngrx/store";
 import {Account} from "../../core/accounts/account";
 import {Payee} from "../../core/accounts/payee";

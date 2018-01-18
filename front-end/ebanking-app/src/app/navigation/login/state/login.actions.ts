@@ -1,5 +1,5 @@
-import {ILoginResponse, LoginInfo} from "../../core/models/login.info";
 import {Action} from "@ngrx/store";
+import { ILoginResponse, LoginInfo } from "../../../core/models/login.info";
 
 export enum LoginActionTypes {
     LoginRequest = '[Login] - submit login request',

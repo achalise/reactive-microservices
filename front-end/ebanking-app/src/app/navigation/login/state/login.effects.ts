@@ -3,14 +3,14 @@ import {HttpClient} from "@angular/common/http";
 import {Action, Store} from "@ngrx/store";
 import {Actions, Effect} from "@ngrx/effects";
 import {Observable} from "rxjs/Observable";
-import {AuthService} from "../../core/common/auth.service";
+import {AuthService} from "../../../core/common/auth.service";
 import {LoginActionTypes, LoginError, LoginRequest, LoginSuccess, LoginSuccessNavigate} from "./login.actions";
 import {
     map,
     switchMap, tap,
 } from 'rxjs/operators';
 import {Router} from "@angular/router";
-import {ILoginResponse} from "../../core/models/login.info";
+import {ILoginResponse} from "../../../core/models/login.info";
 
 
 @Injectable()

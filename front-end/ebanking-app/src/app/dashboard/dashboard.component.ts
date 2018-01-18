@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from "../core/accounts/account";
-import * as appState from "../reducers";
+import * as appState from "../core/reducers";
 import { Store } from "@ngrx/store";
 import { RequestAccounts } from "./state/account.actions";
 import { Observable } from "rxjs/Observable";

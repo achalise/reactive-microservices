@@ -1,6 +1,6 @@
-import {IAuthenticationState} from "../../reducers";
+import {IAuthenticationState} from "../../../core/reducers/index";
 import {LoginActions, LoginActionTypes, LoginError} from "./login.actions";
-import {AuthStatus} from "../../core/models/login.info";
+import {AuthStatus} from "../../../core/models/login.info";
 
 export function loginReducer(state: IAuthenticationState = {status: AuthStatus.UNAUTHENTICATED, errorCode: null, message: null}, action: LoginActions) {
     switch (action.type) {

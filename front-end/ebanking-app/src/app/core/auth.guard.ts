@@ -1,11 +1,11 @@
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Injectable} from "@angular/core";
-import * as app from "../reducers";
+import * as app from "./reducers";
 import {Store} from "@ngrx/store";
 import {AuthStatus} from "./models/login.info";
 import {of} from "rxjs/observable/of";
-import {IAuthenticationState} from "../reducers";
+import {IAuthenticationState} from "./reducers";
 
 
 @Injectable()

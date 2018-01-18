@@ -8,7 +8,7 @@ import {accountsReducer} from "./state/accounts.reducer";
 import {reducer} from "../redux-example/reducer/counter";
 import {Store, StoreModule} from "@ngrx/store";
 import {paymentRequestReducer} from "../payment/state/payment.request.reducer";
-import {State} from "../reducers";
+import {State} from "../core/reducers";
 import {RequestAccounts, RequestAccountsComplete} from "./state/account.actions";
 import {Account} from "../core/accounts/account";
 

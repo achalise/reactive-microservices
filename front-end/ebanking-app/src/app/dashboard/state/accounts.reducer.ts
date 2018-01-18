@@ -1,6 +1,6 @@
 import {Action} from "@ngrx/store";
 import {AccountActions, AccountActionTypes, RequestAccountsComplete, RequestPayeesComplete} from "./account.actions";
-import {AccountsState} from "../../reducers";
+import {AccountsState} from "../../core/reducers";
 
 export function accountsReducer(state: AccountsState, action: Action ) {
     switch (action.type) {

@@ -1,7 +1,7 @@
 import {ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot} from "@angular/router";
 import {Observable} from "rxjs/Observable";
 import {Store} from "@ngrx/store";
-import {State} from "../../reducers";
+import {State} from "../../core/reducers";
 import {Injectable} from "@angular/core";
 import {InitPaymentRequest} from "./payment.actions";
 import {of} from "rxjs/observable/of";

@@ -2,7 +2,7 @@ import {Component, OnInit, OnChanges, ChangeDetectionStrategy, OnDestroy} from '
 import {Account} from "../../core/accounts/account";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
 import {AccountService} from "../../core/accounts/account.service";
-import * as appState from "../../reducers/index";
+import * as appState from "../../core/reducers/index";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
 import {
@@ -17,7 +17,7 @@ import "rxjs/add/operator/takeUntil";
 import {Payee} from "../../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
-import {PaymentStatus} from "../../reducers/index";
+import {PaymentStatus} from "../../core/reducers/index";
 import {Subject} from "rxjs/Subject";
 
 @Component({

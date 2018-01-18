@@ -1,4 +1,4 @@
-import {PaymentRequest, PaymentStatus} from "../../reducers";
+import {PaymentRequest, PaymentStatus} from "../../core/reducers";
 import {Action} from "@ngrx/store";
 import {
     PaymentActionTypes, SubmitPaymentSuccess, UpdateFromAccount, UpdatePaymentAmount, UpdatePaymentDate,

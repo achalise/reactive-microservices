@@ -10,10 +10,10 @@ import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {APP_BASE_HREF} from "@angular/common";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {State} from "../../reducers/index";
-import {LoginLayoutComponent} from "../../login-layout/login-layout.component";
-import {LoginComponent} from "../../login/login.component";
-import {HomeLayoutComponent} from "../../home-layout/home-layout.component";
+import {State} from "../../core/reducers/index";
+import {LoginLayoutComponent} from "../../navigation/login-layout/login-layout.component";
+import {LoginComponent} from "../../navigation/login/login.component";
+import {HomeLayoutComponent} from "../../navigation/home-layout/home-layout.component";
 
 describe('PaymentConfirmationComponent', () => {
   let component: PaymentConfirmationComponent;

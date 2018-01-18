@@ -5,9 +5,9 @@ import { PaymentComponent } from "./payment/payment/payment.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import {PaymentGuard} from "./payment/state/payment.guard";
 import {PaymentConfirmationComponent} from "./payment/payment-confirmation/payment-confirmation.component";
-import {HomeLayoutComponent} from "./home-layout/home-layout.component";
-import {LoginLayoutComponent} from "./login-layout/login-layout.component";
-import {LoginComponent} from "./login/login.component";
+import {HomeLayoutComponent} from "./navigation/home-layout/home-layout.component";
+import {LoginLayoutComponent} from "./navigation/login-layout/login-layout.component";
+import {LoginComponent} from "./navigation/login/login.component";
 import {AuthGuard} from "./core/auth.guard";
 
 const routes: Routes = [

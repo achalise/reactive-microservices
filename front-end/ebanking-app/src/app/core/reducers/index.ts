@@ -1,7 +1,7 @@
-import {Account} from "../core/accounts/account";
-import {Payee} from "../core/accounts/payee";
+import {Account} from "../accounts/account";
+import {Payee} from "../accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {AuthStatus} from "../core/models/login.info";
+import {AuthStatus} from "../models/login.info";
 
 export interface State {
     counter: number,
