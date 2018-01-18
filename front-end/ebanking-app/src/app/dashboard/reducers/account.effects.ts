@@ -19,7 +19,7 @@ import {
 import {
     PaymentActionTypes, SubmitPaymentSuccess,
     SubmitPaymentSuccessNavigate
-} from "../../payment/state/payment.actions";
+} from "../../payment/reducers/payment.actions";
 import {PaymentService} from "../../core/payment/payment.service";
 import {Router} from "@angular/router";
 

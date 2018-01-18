@@ -3,10 +3,10 @@ import {async, ComponentFixture, fakeAsync, TestBed} from '@angular/core/testing
 import { DashboardComponent } from './dashboard.component';
 import {AccountService} from "../../core/accounts/account.service";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {payeesReducer} from "../../payment/state/payees.reducer";
+import {payeesReducer} from "../../payment/reducers/payees.reducer";
 import {accountsReducer} from "../reducers/accounts.reducer";
 import {Store, StoreModule} from "@ngrx/store";
-import {paymentRequestReducer} from "../../payment/state/payment.request.reducer";
+import {paymentRequestReducer} from "../../payment/reducers/payment.request.reducer";
 import {State} from "../../reducer/index";
 import {RequestAccounts, RequestAccountsComplete} from "../reducers/account.actions";
 import {Account} from "../../core/accounts/account";

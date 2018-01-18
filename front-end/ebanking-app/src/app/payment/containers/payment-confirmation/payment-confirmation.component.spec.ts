@@ -2,18 +2,18 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaymentConfirmationComponent } from './payment-confirmation.component';
 import {Store, StoreModule} from "@ngrx/store";
-import {paymentRequestReducer} from "../state/payment.request.reducer";
-import {AppRoutingModule} from "../../app.routing.module";
-import {DashboardComponent} from "../../dashboard/containers/dashboard.component";
+import {paymentRequestReducer} from "../../reducers/payment.request.reducer";
+import {AppRoutingModule} from "../../../app.routing.module";
+import {DashboardComponent} from "../../../dashboard/containers/dashboard.component";
 import {PaymentComponent} from "../payment/payment.component";
 import {NO_ERRORS_SCHEMA} from "@angular/core";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {APP_BASE_HREF} from "@angular/common";
 import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {State} from "../../reducer/index";
-import {LoginLayoutComponent} from "../../navigation/login-layout/login-layout.component";
-import {LoginComponent} from "../../navigation/login/login.component";
-import {HomeLayoutComponent} from "../../navigation/home-layout/home-layout.component";
+import {State} from "../../../reducer/index";
+import {LoginLayoutComponent} from "../../../navigation/login-layout/login-layout.component";
+import {LoginComponent} from "../../../navigation/login/login.component";
+import {HomeLayoutComponent} from "../../../navigation/home-layout/home-layout.component";
 
 describe('PaymentConfirmationComponent', () => {
   let component: PaymentConfirmationComponent;

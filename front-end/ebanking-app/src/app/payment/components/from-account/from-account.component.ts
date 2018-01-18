@@ -3,7 +3,7 @@ import {
     ChangeDetectionStrategy, ViewChild
 } from '@angular/core';
 import {FormGroup} from "@angular/forms";
-import {Account} from "../../core/accounts/account";
+import {Account} from "../../../core/accounts/account";
 import {Observable} from "rxjs";
 import { distinctUntilChanged } from "rxjs/operator/distinctUntilChanged";
 import { map } from "rxjs/operator/map";

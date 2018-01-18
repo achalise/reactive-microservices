@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as appState from "../../reducer/index";
+import * as appState from "../../../reducer/index";
 import {Store} from "@ngrx/store";
-import {Account} from "../../core/accounts/account";
-import {Payee} from "../../core/accounts/payee";
+import {Account} from "../../../core/accounts/account";
+import {Payee} from "../../../core/accounts/payee";
 import {Router} from "@angular/router";
-import {SubmitPaymentRequest} from "../state/payment.actions";
+import {SubmitPaymentRequest} from "../../reducers/payment.actions";
 
 @Component({
   selector: 'app-payment-confirmation',

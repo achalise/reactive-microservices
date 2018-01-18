@@ -1,10 +1,10 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectionStrategy} from '@angular/core';
-import {Account} from "../../core/accounts/account";
+import {Account} from "../../../core/accounts/account";
 import {FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
 import {map} from "rxjs/operator/map";
 import {distinctUntilChanged} from "rxjs/operator/distinctUntilChanged";
-import {Payee} from "../../core/accounts/payee";
+import {Payee} from "../../../core/accounts/payee";
 import {Subject} from "rxjs/Subject";
 import {NgbTypeahead} from "@ng-bootstrap/ng-bootstrap";
 

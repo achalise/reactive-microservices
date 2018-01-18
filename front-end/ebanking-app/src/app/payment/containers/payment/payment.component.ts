@@ -1,25 +1,25 @@
 import {Component, OnInit, OnChanges, ChangeDetectionStrategy, OnDestroy} from '@angular/core';
-import {Account} from "../../core/accounts/account";
+import {Account} from "../../../core/accounts/account";
 import {FormGroup, FormBuilder, Validators, FormControl} from "@angular/forms";
-import {AccountService} from "../../core/accounts/account.service";
-import * as appState from "../../reducer/index";
+import {AccountService} from "../../../core/accounts/account.service";
+import * as appState from "../../../reducer/index";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs/Observable";
 import {
     InitPaymentRequest, UpdateFromAccount, UpdatePaymentAmount, UpdatePaymentDate, UpdatePaymentNotes,
     UpdatePaymentStatus,
     UpdateToAccount
-} from "../state/payment.actions";
+} from "../../reducers/payment.actions";
 import { map } from "rxjs/operator/map";
 import { filter } from "rxjs/operator/filter";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/takeUntil";
-import {Payee} from "../../core/accounts/payee";
+import {Payee} from "../../../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
-import {PaymentStatus} from "../../reducer/index";
+import {PaymentStatus} from "../../../reducer/index";
 import {Subject} from "rxjs/Subject";
-import * as fromAccounts from "../../dashboard/reducers";
+import * as fromAccounts from "../../../dashboard/reducers/index";
 
 @Component({
   selector: 'app-payment',

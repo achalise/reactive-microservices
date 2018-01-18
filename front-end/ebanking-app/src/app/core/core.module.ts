@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { AuthGuard } from "./auth.guard";
 import { AuthService } from "./common/auth.service";
 import { PaymentService } from "./payment/payment.service";
-import { PaymentGuard } from "../payment/state/payment.guard";
+import { PaymentGuard } from "../payment/payment.guard";
 import { AccountService } from "./accounts/account.service";
 
 @NgModule({
