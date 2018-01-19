@@ -29,8 +29,7 @@ export class AccountEffects {
     constructor(
         private router: Router,
         private actions$: Actions,
-        private accountService: AccountService,
-        private paymentService: PaymentService
+        private accountService: AccountService
     ) { }
 
     @Effect() loadAccounts$: Observable<Action> = this.actions$.ofType(AccountActionTypes.RequestAccounts).pipe(
@@ -42,14 +41,4 @@ export class AccountEffects {
         //Do something else to handle error
         catchError(() => Observable.throw('error')),
         map(payees => new RequestPayeesComplete(payees)));
-
-    @Effect() submitPayment$: Observable<Action> = this.actions$.ofType(PaymentActionTypes.SubmitPaymentRequest).pipe(
-        switchMap(() => this.paymentService.submitPayment()),
-        map((paymentResponse) => new SubmitPaymentSuccess(paymentResponse))
-    );
-
-    @Effect() submitPaymentSuccess$: Observable<Action> = this.actions$.ofType(PaymentActionTypes.SubmitPaymentRequestSuccess).pipe(
-        tap(() => {this.router.navigate(['dashboard'])}),
-        map(() => new SubmitPaymentSuccessNavigate())
-    );
 }

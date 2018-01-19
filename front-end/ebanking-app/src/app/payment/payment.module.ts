@@ -7,9 +7,10 @@ import {ToAccountComponent} from "./components/to-account/to-account.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { StoreModule } from "@ngrx/store";
-import { reducers } from "./reducers";
 import { payeesReducer } from "./reducers/payees.reducer";
 import { paymentRequestReducer } from "./reducers/payment.request.reducer";
+import { EffectsModule } from "@ngrx/effects";
+import { PaymentEffects } from "./reducers/payment.effects";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { paymentRequestReducer } from "./reducers/payment.request.reducer";
         ReactiveFormsModule,
         FormsModule,
         NgbModule,
-        StoreModule.forFeature('payment', {payees: payeesReducer, paymentRequest: paymentRequestReducer})
+        StoreModule.forFeature('payment', {payees: payeesReducer, paymentRequest: paymentRequestReducer}),
+        EffectsModule.forFeature([PaymentEffects]),
     ],
     declarations: [PaymentComponent, PaymentConfirmationComponent, FromAccountComponent, ToAccountComponent]
 })
