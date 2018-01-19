@@ -1,14 +1,14 @@
-import {PaymentRequest, PaymentStatus} from "../../reducer/index";
-import {Action} from "@ngrx/store";
 import {
+    PaymentActions,
     PaymentActionTypes, SubmitPaymentSuccess, UpdateFromAccount, UpdatePaymentAmount, UpdatePaymentDate,
     UpdatePaymentNotes,
     UpdatePaymentStatus,
     UpdateToAccount
 } from "./payment.actions";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import { PaymentRequest, PaymentStatus } from "./index";
 
-export function paymentRequestReducer(state: PaymentRequest, action: Action) {
+export function paymentRequestReducer(state: PaymentRequest, action: PaymentActions) {
     switch (action.type) {
         case PaymentActionTypes.InitPaymentRequest:
             //TODO: create an initial state object separately

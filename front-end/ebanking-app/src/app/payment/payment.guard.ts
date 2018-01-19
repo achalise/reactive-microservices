@@ -20,7 +20,7 @@ export class PaymentGuard implements CanActivate {
     constructor(private store: Store<State>){}
 
     dataAvailable(): Observable<any> {
-        let payementRequest$ = this.store.select('paymentRequest').do(d => {
+        let payementRequest$ = this.store.select(fromPayment.getPaymentRequest).do(d => {
             if(!d) {
                 this.store.dispatch(new InitPaymentRequest());
             }

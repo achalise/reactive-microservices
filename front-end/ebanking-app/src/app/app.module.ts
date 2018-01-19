@@ -28,7 +28,7 @@ import { CoreModule } from "./core/core.module";
     NgbModule.forRoot(),
     StoreModule.forRoot({
         // payees: payeesReducer,
-        paymentRequest: paymentRequestReducer,
+        // paymentRequest: paymentRequestReducer,
         authState: loginReducer
     }),
     EffectsModule.forRoot([AccountEffects, LoginEffects]),

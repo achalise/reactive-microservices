@@ -2,8 +2,8 @@ import {Action} from "@ngrx/store";
 import {Account} from "../../core/accounts/account";
 import {Payee} from "../../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import {PaymentStatus} from "../../reducer/index";
 import {IPaymentResponse} from "../../core/payment/payment.response";
+import { PaymentStatus } from "./index";
 
 export enum PaymentActionTypes {
     InitPaymentRequest = '[Payment Request] Init',
@@ -72,5 +72,7 @@ export type PaymentActions = InitPaymentRequest |
                              UpdateToAccount |
                              UpdatePaymentDate |
                              UpdatePaymentAmount |
+                             SubmitPaymentRequest|
+                             SubmitPaymentSuccess|
                              UpdatePaymentNotes |
                              UpdatePaymentStatus;

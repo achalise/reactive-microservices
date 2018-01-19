@@ -9,6 +9,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { StoreModule } from "@ngrx/store";
 import { reducers } from "./reducers";
 import { payeesReducer } from "./reducers/payees.reducer";
+import { paymentRequestReducer } from "./reducers/payment.request.reducer";
 
 
 @NgModule({
@@ -17,7 +18,7 @@ import { payeesReducer } from "./reducers/payees.reducer";
         ReactiveFormsModule,
         FormsModule,
         NgbModule,
-        StoreModule.forFeature('payment', {payees: payeesReducer})
+        StoreModule.forFeature('payment', {payees: payeesReducer, paymentRequest: paymentRequestReducer})
     ],
     declarations: [PaymentComponent, PaymentConfirmationComponent, FromAccountComponent, ToAccountComponent]
 })

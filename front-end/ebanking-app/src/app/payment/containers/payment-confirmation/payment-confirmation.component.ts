@@ -5,6 +5,7 @@ import {Account} from "../../../core/accounts/account";
 import {Payee} from "../../../core/accounts/payee";
 import {Router} from "@angular/router";
 import {SubmitPaymentRequest} from "../../reducers/payment.actions";
+import  * as fromPayement  from "../../reducers";
 
 @Component({
   selector: 'app-payment-confirmation',
@@ -22,7 +23,7 @@ export class PaymentConfirmationComponent implements OnInit {
   constructor(private store: Store<appState.State>, private router: Router) { }
 
   ngOnInit() {
-      this.store.select('paymentRequest').filter(t => !!t).subscribe(v => {
+      this.store.select(fromPayement.getPaymentRequest).filter(t => !!t).subscribe(v => {
         this.amount = v.amount;
         this.fromAccount = v.fromAccount;
         this.toAccount = v.toAccount;

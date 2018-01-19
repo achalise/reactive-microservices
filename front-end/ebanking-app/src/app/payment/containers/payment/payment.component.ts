@@ -17,10 +17,10 @@ import "rxjs/add/operator/takeUntil";
 import {Payee} from "../../../core/accounts/payee";
 import {NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
 import {Router} from "@angular/router";
-import {PaymentStatus} from "../../../reducer/index";
 import {Subject} from "rxjs/Subject";
 import * as fromAccounts from "../../../dashboard/reducers/index";
 import * as fromPayment from "../../reducers/index";
+import { PaymentStatus } from "../../reducers/index";
 
 @Component({
   selector: 'app-payment',
@@ -32,7 +32,7 @@ export class PaymentComponent implements OnInit, OnChanges, OnDestroy {
 
   protected paymentForm: FormGroup;
 
-  protected paymentRequest$: Observable<appState.PaymentRequest>;
+  protected paymentRequest$: Observable<fromPayment.PaymentRequest>;
 
   protected fromAccounts$ : Observable<Account[]>;
   protected fromAccount$: Observable<Account>;
@@ -56,14 +56,10 @@ export class PaymentComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit() {
-    this.paymentRequest$ = this.store.select('paymentRequest').filter(t => !!t);
+    this.paymentRequest$ = this.store.select(fromPayment.getPaymentRequest).filter(t => !!t);
 
     this.fromAccounts$ = this.store.select(fromAccounts.getAccounts);
-    // this.fromAccounts$ = this.store.select('accounts').filter(t => !!t).map((t: appState.AccountsState) => t.accounts);
     this.fromAccount$ = map.call(filter.call(this.paymentRequest$, t => !!t), t => t.fromAccount);
-
-    // this.toAccounts$ = this.store.select('payees').filter(t => !!t).map((t: appState.PayeesState) => t.payees);
-
     this.toAccounts$ = this.store.select(fromPayment.getPayees);
     this.toAccounts$.subscribe(d => {
         console.log('the payees' + d), e => {
