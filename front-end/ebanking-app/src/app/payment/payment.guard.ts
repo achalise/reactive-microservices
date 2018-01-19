@@ -33,7 +33,7 @@ export class PaymentGuard implements CanActivate {
         }).filter(d => d && !d.accountLoading);
 
         let payees$ = this.store.select(fromPayment.getPayeesState).do(d => {
-            if(!d || (!d.payees || d.payees.length === 0)) {
+            if(!d) {
                 this.store.dispatch(new RequestPayees());
             }
         }).filter(d => d && !d.payeesLoading);
@@ -41,7 +41,10 @@ export class PaymentGuard implements CanActivate {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        return this.dataAvailable().switchMap(() => of(true)).catch(() => of(false));
+        return this.dataAvailable().switchMap(() => of(true)).catch((e) => {
+            console.log('The error ', e);
+            return of(false);
+        });
     }
 
 }

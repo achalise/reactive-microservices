@@ -17,7 +17,7 @@ import { payeesReducer } from "./reducers/payees.reducer";
         ReactiveFormsModule,
         FormsModule,
         NgbModule,
-        StoreModule.forFeature('payment', payeesReducer)
+        StoreModule.forFeature('payment', {payees: payeesReducer})
     ],
     declarations: [PaymentComponent, PaymentConfirmationComponent, FromAccountComponent, ToAccountComponent]
 })
