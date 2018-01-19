@@ -13,6 +13,7 @@ import { InitPaymentRequest } from "./reducers/payment.actions";
 import { RequestAccounts } from "../dashboard/reducers/account.actions";
 import { RequestPayees } from "./reducers/payee.actions";
 import * as fromAccounts from "../dashboard/reducers";
+import * as fromPayment from "./reducers";
 
 @Injectable()
 export class PaymentGuard implements CanActivate {
@@ -31,8 +32,8 @@ export class PaymentGuard implements CanActivate {
             }
         }).filter(d => d && !d.accountLoading);
 
-        let payees$ = this.store.select('payees').do(d => {
-            if(!d || (d.payees && d.payees.length === 0)) {
+        let payees$ = this.store.select(fromPayment.getPayeesState).do(d => {
+            if(!d || (!d.payees || d.payees.length === 0)) {
                 this.store.dispatch(new RequestPayees());
             }
         }).filter(d => d && !d.payeesLoading);

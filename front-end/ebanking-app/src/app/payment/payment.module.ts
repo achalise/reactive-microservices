@@ -6,6 +6,9 @@ import {FromAccountComponent} from "./components/from-account/from-account.compo
 import {ToAccountComponent} from "./components/to-account/to-account.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { StoreModule } from "@ngrx/store";
+import { reducers } from "./reducers";
+import { payeesReducer } from "./reducers/payees.reducer";
 
 
 @NgModule({
@@ -13,7 +16,8 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
         CommonModule,
         ReactiveFormsModule,
         FormsModule,
-        NgbModule
+        NgbModule,
+        StoreModule.forFeature('payment', payeesReducer)
     ],
     declarations: [PaymentComponent, PaymentConfirmationComponent, FromAccountComponent, ToAccountComponent]
 })

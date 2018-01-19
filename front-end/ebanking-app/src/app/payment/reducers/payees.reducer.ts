@@ -1,12 +1,11 @@
-import {Action} from "@ngrx/store";
-import {AccountActionTypes, RequestPayeesComplete} from "../../dashboard/reducers/account.actions";
-import {PayeesState} from "../../reducer/index";
+import { PayeesState } from "./index";
+import { PayeeActions, PayeeActionTypes, RequestPayeesComplete } from "./payee.actions";
 
-export function payeesReducer(state: PayeesState, action: Action ) {
+export function payeesReducer(state: PayeesState, action: PayeeActions ) {
     switch (action.type) {
-        case AccountActionTypes.RequestPayees:
+        case PayeeActionTypes.RequestPayees:
             return {...state, payeesLoading: true};
-        case AccountActionTypes.RequestPayeesComplete:
+        case PayeeActionTypes.RequestPayeesComplete:
             let reqAction = action as RequestPayeesComplete;
             return {...state, payees: reqAction.payload, payeesLoading: false};
         default:

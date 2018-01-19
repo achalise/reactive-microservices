@@ -8,7 +8,6 @@ import { StoreModule } from "@ngrx/store";
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AccountEffects } from "./dashboard/reducers/account.effects";
 import { EffectsModule } from "@ngrx/effects";
-import { accountsReducer } from "./dashboard/reducers/accounts.reducer";
 import { paymentRequestReducer } from "./payment/reducers/payment.request.reducer";
 import { payeesReducer } from './payment/reducers/payees.reducer';
 import { loginReducer } from "./navigation/login/state/login.reducer";
@@ -28,7 +27,7 @@ import { CoreModule } from "./core/core.module";
     CoreModule.forRoot(),
     NgbModule.forRoot(),
     StoreModule.forRoot({
-        payees: payeesReducer,
+        // payees: payeesReducer,
         paymentRequest: paymentRequestReducer,
         authState: loginReducer
     }),

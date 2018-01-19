@@ -20,6 +20,7 @@ import {Router} from "@angular/router";
 import {PaymentStatus} from "../../../reducer/index";
 import {Subject} from "rxjs/Subject";
 import * as fromAccounts from "../../../dashboard/reducers/index";
+import * as fromPayment from "../../reducers/index";
 
 @Component({
   selector: 'app-payment',
@@ -61,7 +62,15 @@ export class PaymentComponent implements OnInit, OnChanges, OnDestroy {
     // this.fromAccounts$ = this.store.select('accounts').filter(t => !!t).map((t: appState.AccountsState) => t.accounts);
     this.fromAccount$ = map.call(filter.call(this.paymentRequest$, t => !!t), t => t.fromAccount);
 
-    this.toAccounts$ = this.store.select('payees').filter(t => !!t).map((t: appState.PayeesState) => t.payees);
+    // this.toAccounts$ = this.store.select('payees').filter(t => !!t).map((t: appState.PayeesState) => t.payees);
+
+    this.toAccounts$ = this.store.select(fromPayment.getPayees);
+    this.toAccounts$.subscribe(d => {
+        console.log('the payees' + d), e => {
+            console.log('The error', e);
+        }
+    });
+
     this.toAccount$ = this.paymentRequest$.map(t => t.toAccount);
 
     this.startDate$ = this.paymentRequest$.map(t => t.paymentDate);

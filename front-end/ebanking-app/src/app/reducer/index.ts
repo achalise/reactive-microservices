@@ -6,14 +6,11 @@ import {AuthStatus} from "../core/models/login.info";
 export interface State {
     counter: number,
     authState: IAuthenticationState,
-    payees: PayeesState,
+    // payees: PayeesState,
     paymentRequest: PaymentRequest
 }
 
-export interface PayeesState {
-    payees: Payee[],
-    payeesLoading: boolean
-}
+
 
 export interface PaymentRequest {
     fromAccount: Account,
