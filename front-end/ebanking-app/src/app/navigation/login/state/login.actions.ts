@@ -1,5 +1,6 @@
-import {Action} from "@ngrx/store";
-import { ILoginResponse, LoginInfo } from "../../../core/models/login.info";
+import { ConfigData } from '@app/store/reducers/index';
+import { Action } from '@ngrx/store';
+import * as fromLogin from '@app/core/models';
 
 export enum LoginActionTypes {
     LoginRequest = '[Login] - submit login request',
@@ -10,17 +11,23 @@ export enum LoginActionTypes {
 
 export class LoginRequest implements Action {
     readonly type = LoginActionTypes.LoginRequest;
-    constructor(public payload: LoginInfo){}
+
+    constructor(public payload: fromLogin.LoginInfo) {
+    }
 }
 
 export class LoginSuccess implements Action {
     readonly type = LoginActionTypes.LoginSuccess;
-    constructor(public payload: ILoginResponse){}
+
+    constructor(public payload: fromLogin.ILoginResponse) {
+    }
 }
 
 export class LoginError implements Action {
     readonly type = LoginActionTypes.LoginError;
-    constructor(public payload: ILoginResponse){}
+
+    constructor(public payload: fromLogin.ILoginResponse) {
+    }
 }
 
 export class LoginSuccessNavigate implements Action {

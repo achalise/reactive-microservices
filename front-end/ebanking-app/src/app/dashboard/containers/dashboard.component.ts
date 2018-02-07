@@ -1,24 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { Account } from "../../core/accounts/account";
-import * as fromAccounts from "../reducers";
+import {
+    AfterViewInit, Component, ComponentFactory, ComponentFactoryResolver, ComponentRef, OnInit, TemplateRef, ViewChild,
+    ViewContainerRef
+} from '@angular/core';
+import { Account } from '@app/core/accounts/account';
+import * as fromAccounts from '@app/dashboard/store';
+import { ModalComponent } from '@app/ui-widgets/modal/modal.component';
+import { ModalService } from '@app/ui-widgets/modal/modal.service';
 import { Store } from '@ngrx/store';
-import { RequestAccounts } from "../reducers/account.actions";
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
+import { RequestAccounts } from '../store';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+    selector: 'eb-dashboard',
+    templateUrl: './dashboard.component.html',
+    styleUrls: [ './dashboard.component.scss' ]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+    accounts$: Observable<Account[]>;
 
-  accounts$: Observable<Account[]>;
+    @ViewChild('editAccount', {read: ViewContainerRef}) editAccount;
+    componentRef: ComponentRef<ModalComponent>;
 
-  constructor(private store: Store<fromAccounts.State>) { }
+    @ViewChild('msg') private msgRef: TemplateRef<any>;
 
-  ngOnInit() {
-    this.store.dispatch(new RequestAccounts());
-    this.accounts$ = this.store.select(fromAccounts.getAccounts);
-  }
+    constructor(private store: Store<fromAccounts.State>, private cfResolver: ComponentFactoryResolver) {
+    }
+    ngOnInit() {
+        this.store.dispatch(new RequestAccounts());
+        this.accounts$ = this.store.select(fromAccounts.getAccounts);
+    }
+
+    ngAfterViewInit(): void {
+        console.log(`The edit template `);
+        console.log(this.editAccount);
+    }
+
+    openAccountDetails(account: Account) {
+        this.editAccount.clear();
+        console.log('Opening details for account ', account);
+        const factory: ComponentFactory<ModalComponent> = this.cfResolver.resolveComponentFactory(ModalComponent);
+        this.componentRef = this.editAccount.createComponent(factory);
+        this.componentRef.instance.someText = account.accountName;
+        this.editAccount.createEmbeddedView(this.msgRef, account);
+    }
+
+    clickedClose() {
+        console.log('Clicked close ');
+    }
+
+    private openModal(content: any, options: any) {
+        const factory: ComponentFactory<ModalComponent> = this.cfResolver.resolveComponentFactory(ModalComponent);
+        const containerSelector = options && options.container || 'body';
+        const containerEl = document.querySelector(containerSelector);
+
+    }
 
 }
+

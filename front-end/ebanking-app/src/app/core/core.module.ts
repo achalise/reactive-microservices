@@ -1,13 +1,11 @@
-import { ModuleWithProviders, NgModule, Optional, SkipSelf } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { AuthGuard } from "./auth.guard";
-import { AuthService } from "./common/auth.service";
-import { PaymentService } from "./payment/payment.service";
-import { PaymentGuard } from "../payment/payment.guard";
-import { AccountService } from "./accounts/account.service";
+import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './common/auth.service';
+import { AccountService } from './accounts/account.service';
 
 @NgModule({
-    imports: [CommonModule]
+    imports: [ CommonModule ]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
@@ -20,7 +18,7 @@ export class CoreModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: CoreModule,
-            providers: [AccountService, AuthGuard, AuthService, PaymentService, PaymentGuard]
+            providers: [ AccountService, AuthGuard, AuthService ]
         };
     }
 }

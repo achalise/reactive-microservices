@@ -1,10 +1,10 @@
 <ng-template #rt let-r="result" let-t="term">
-  <div>{{ r.accountName }} | {{r.accountNumber}}</div>
+    <div>{{ r.accountName }} | {{ r.accountNumber }}</div>
 </ng-template>
 
 <div [formGroup]="group">
-  <input type="text" class="form-control" id="toAccount" [(ngModel)]="payee" formControlName="toAccount"
-         (ngModelChange)="itemSelected($event)" [ngbTypeahead]="search" [inputFormatter]="formatter"
-         [resultTemplate]="rt" placeholder="{{placeholder}}" (focus)="focus$.next($event.target.value)"
-         (click)="click$.next($event.target.value)" #instance="ngbTypeahead">
+    <input type="text" class="form-control" id="toAccount" [(ngModel)]="payee" formControlName="toAccount"
+           (ngModelChange)="itemSelected($event)" [ngbTypeahead]="search" [inputFormatter]="formatter"
+           [resultTemplate]="rt" placeholder="{{placeholder}}" (focus)="focus$.next($event.target.value)"
+           (click)="click$.next($event.target.value)" #instance="ngbTypeahead">
 </div>

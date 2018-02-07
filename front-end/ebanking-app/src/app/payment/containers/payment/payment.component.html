@@ -1,52 +1,56 @@
 <h1>Make a payment</h1>
 <form [formGroup]="paymentForm" (submit)="submit()">
-  <div class="form-group">
-    <label>From account:</label>
-    <app-from-account id="formGroupExampleInput"
-                      (onItemSelected)="accountSelected($event)"
-                      [group]="paymentForm"
-                      [accounts]="fromAccounts$ | async"
-                      [fromAccount]="fromAccount$ | async"
-                      [placeholder]="'Account your are paying from'"></app-from-account>
-  </div>
-
-  <div class="form-group">
-    <label>To account:</label>
-    <app-to-account [payees]="toAccounts$ | async"
-                    (onItemSelected)="payeeSelected($event)"
-                    [payee]="toAccount$ | async"
-                    [group]="paymentForm"
-                    [placeholder]="'Account or biller you are paying to'"></app-to-account>
-  </div>
-
-  <div class="form-group">
-    <label>When:</label>
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="dp" [ngModel]="startDate$ | async" ngbDatepicker #d="ngbDatepicker"
-             formControlName="startDate" (ngModelChange)="startDateUpdated($event)">
-      <div class="input-group-addon" (click)="d.toggle()" >
-        <i class="fa fa-calendar" aria-hidden="true"></i>
-      </div>
+    <div class="form-group">
+        <label>From account:</label>
+        <eb-from-account id="formGroupExampleInput"
+                          (ItemSelected)="accountSelected($event)"
+                          [group]="paymentForm"
+                          [accounts]="fromAccounts$ | async"
+                          [fromAccount]="fromAccount$ | async"
+                          [placeholder]="'Account your are paying from'"></eb-from-account>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label>Amount:</label>
-    <div>
-      <input type="text" class="form-control" formControlName="amount" [ngModel]="amount$ | async" (ngModelChange)="amountChanged($event)">
+    <div class="form-group">
+        <label>To account:</label>
+        <eb-to-account [payees]="toAccounts$ | async"
+                        (ItemSelected)="payeeSelected($event)"
+                        [payee]="toAccount$ | async"
+                        [group]="paymentForm"
+                        [placeholder]="'Account or biller you are paying to'"></eb-to-account>
     </div>
-  </div>
 
-  <div class="form-group">
-    <label>Notes:</label>
-    <div>
-      <textarea class="form-control" rows="3" formControlName="notes" [ngModel]="notes" (ngModelChange)="notesChanged($event)"></textarea>
+    <div class="form-group">
+        <label>When:</label>
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="dp" [ngModel]="startDate$ | async" ngbDatepicker #d="ngbDatepicker"
+                   formControlName="startDate" (ngModelChange)="startDateUpdated($event)">
+            <div class="input-group-addon" (click)="d.toggle()">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="float-right">
-    <button type="button" class="btn btn-primary" [disabled]="paymentForm.pristine" (click)="resetPaymentRequest()">Reset</button>
-    <button type="submit" class="btn btn-primary" [disabled]="paymentForm.invalid">Pay</button>
-  </div>
+
+    <div class="form-group">
+        <label>Amount:</label>
+        <div>
+            <input type="text" class="form-control" formControlName="amount" [ngModel]="amount$ | async"
+                   (ngModelChange)="amountChanged($event)">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Notes:</label>
+        <div>
+            <textarea class="form-control" rows="3" formControlName="notes" [ngModel]="notes"
+                      (ngModelChange)="notesChanged($event)"></textarea>
+        </div>
+    </div>
+    <div class="float-right">
+        <button type="button" class="btn btn-primary" [disabled]="paymentForm.pristine" (click)="resetPaymentRequest()">
+            Reset
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="paymentForm.invalid">Pay</button>
+    </div>
 
 </form>

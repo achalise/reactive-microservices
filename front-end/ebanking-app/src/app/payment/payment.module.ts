@@ -1,16 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {PaymentComponent} from "./containers/payment/payment.component";
-import {PaymentConfirmationComponent} from "./containers/payment-confirmation/payment-confirmation.component";
-import {FromAccountComponent} from "./components/from-account/from-account.component";
-import {ToAccountComponent} from "./components/to-account/to-account.component";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
-import { StoreModule } from "@ngrx/store";
-import { payeesReducer } from "./reducers/payees.reducer";
-import { paymentRequestReducer } from "./reducers/payment.request.reducer";
-import { EffectsModule } from "@ngrx/effects";
-import { PaymentEffects } from "./reducers/payment.effects";
+import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PaymentGuard } from '@app/payment/guards/payment.guard';
+import { PaymentRoutingModule } from '@app/payment/payment.routing.module';
+import { PaymentService } from '@app/payment/services/payment.service';
+import { reducers } from '@app/payment/store';
+import { PayeeEffects } from '@app/payment/store/effects/payee.effects';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { FromAccountComponent } from './components/from-account/from-account.component';
+import { ToAccountComponent } from './components/to-account/to-account.component';
+import { PaymentConfirmationComponent } from './containers/payment-confirmation/payment-confirmation.component';
+import { PaymentComponent } from './containers/payment/payment.component';
+import { PaymentEffects } from './store';
 
 
 @NgModule({
@@ -19,10 +22,16 @@ import { PaymentEffects } from "./reducers/payment.effects";
         ReactiveFormsModule,
         FormsModule,
         NgbModule,
-        StoreModule.forFeature('payment', {payees: payeesReducer, paymentRequest: paymentRequestReducer}),
-        EffectsModule.forFeature([PaymentEffects]),
+        PaymentRoutingModule,
+        StoreModule.forFeature('payment', reducers),
+        EffectsModule.forFeature([ PaymentEffects, PayeeEffects ])
     ],
-    declarations: [PaymentComponent, PaymentConfirmationComponent, FromAccountComponent, ToAccountComponent]
+    declarations: [ PaymentComponent, PaymentConfirmationComponent, FromAccountComponent, ToAccountComponent ],
+    providers: [ PaymentService, PaymentGuard ]
 })
 
-export class PaymentModule { }
+export class PaymentModule {
+    constructor() {
+        console.log('Lazily loaded payment module ...');
+    }
+}

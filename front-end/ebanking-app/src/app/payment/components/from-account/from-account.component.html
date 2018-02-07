@@ -1,21 +1,23 @@
 <ng-template #rt let-r="result" let-t="term">
-  <div>{{ r.accountName }} | {{r.accountType}} | {{r.accountNumber}} | {{r.availableBalance}}</div>
-  <div>
-    Additional information here with some style applied
-  </div>
-  <div>
-    <p *ngIf="r.accountType == 'CARD'">
-      This is a card account ..
-    </p>
-  </div>
+    <div>{{ r.accountName }} | {{ r.accountType }} | {{ r.accountNumber }} | {{ r.availableBalance }}</div>
+    <div>
+        Additional information here with some style applied
+    </div>
+    <div>
+        <p *ngIf="r.accountType == 'CARD'">
+            This is a card account ..
+        </p>
+    </div>
 </ng-template>
 
 <div [formGroup]="group">
-  <input type="text" class="form-control" id="formGroupExampleInput" [ngModel]="fromAccount" formControlName="fromAccount"
-         (ngModelChange)="itemSelected($event)" [ngbTypeahead]="searchTwo" [inputFormatter]="formatter"
-         [resultTemplate]="rt" placeholder="{{placeholder}}" (focus)="focus$.next($event.target.value)"
-         (click)="click$.next($event.target.value)" #instance="ngbTypeahead">
+    <input type="text" class="form-control" id="formGroupExampleInput" [ngModel]="fromAccount"
+           formControlName="fromAccount"
+           (ngModelChange)="itemSelected($event)" [ngbTypeahead]="search" [inputFormatter]="formatter"
+           [resultTemplate]="rt" placeholder="{{placeholder}}" (focus)="focus$.next($event.target.value)"
+           (click)="click$.next($event.target.value)" #instance="ngbTypeahead">
 </div>
-<div *ngIf="group.controls['fromAccount'].errors && ! group.controls['fromAccount'].pristine" class="alert alert-danger" role="alert">
-  <strong>From Account is required</strong> Please select account you want to pay from.
+<div *ngIf="group.controls['fromAccount'].errors && ! group.controls['fromAccount'].pristine" class="alert alert-danger"
+     role="alert">
+    <strong>From Account is required</strong> Please select account you want to pay from.
 </div>

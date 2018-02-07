@@ -1,28 +1,28 @@
 <h3>Confirm payment</h3>
 
 <table>
-  <tr>
-    <td>From account:</td>
-    <td>{{fromAccount.accountName}} | {{fromAccount.accountNumber}}</td>
-  </tr>
-  <tr>
-    <td>To account:</td>
-    <td>{{toAccount.accountName}} | {{toAccount.accountNumber}}</td>
-  </tr>
-  <tr>
-    <td>Amount:</td>
-    <td>{{amount | currency}}</td>
-  </tr>
-  <tr>
-    <td>Payment date:</td>
-    <td>{{paymentDate}}</td>
-  </tr>
-  <tr>
-    <td>Notes:</td>
-    <td>{{notes}}</td>
-  </tr>
+    <tr>
+        <td>From account:</td>
+        <td>{{ fromAccount.accountName }} | {{ fromAccount.accountNumber }}</td>
+    </tr>
+    <tr>
+        <td>To account:</td>
+        <td>{{ toAccount.accountName }} | {{ toAccount.accountNumber }}</td>
+    </tr>
+    <tr>
+        <td>Amount:</td>
+        <td>{{ amount | currency }}</td>
+    </tr>
+    <tr>
+        <td>Payment date:</td>
+        <td>{{ paymentDate }}</td>
+    </tr>
+    <tr>
+        <td>Notes:</td>
+        <td>{{ notes }}</td>
+    </tr>
 </table>
 <div class="float-right">
-  <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
-  <button type="button" class="btn btn-success" (click)="submit()">Continue</button>
+    <button type="button" class="btn btn-primary" (click)="cancel()">Cancel</button>
+    <button type="button" class="btn btn-success" (click)="submit()">Continue</button>
 </div>

@@ -1,16 +1,20 @@
-import {IAuthenticationState} from "../../../reducer/index";
-import {LoginActions, LoginActionTypes, LoginError} from "./login.actions";
-import {AuthStatus} from "../../../core/models/login.info";
+import { IAuthenticationState } from '@app/store/reducers';
+import { LoginActions, LoginActionTypes, LoginError } from './login.actions';
+import { AuthStatus } from '@app/core/models';
 
-export function loginReducer(state: IAuthenticationState = {status: AuthStatus.UNAUTHENTICATED, errorCode: null, message: null}, action: LoginActions) {
+export function loginReducer(state: IAuthenticationState = {
+    status: AuthStatus.UNAUTHENTICATED,
+    errorCode: null,
+    message: null,
+}, action: LoginActions) {
     switch (action.type) {
         case LoginActionTypes.LoginRequest:
-            return {...state, status: AuthStatus.AUTHENTICATING};
+            return { ...state, status: AuthStatus.AUTHENTICATING };
         case LoginActionTypes.LoginSuccess:
-            return {...state, status: AuthStatus.AUTHENTICATED, message: null};
+            return { ...state, status: AuthStatus.AUTHENTICATED, message: null };
         case LoginActionTypes.LoginError:
-            let loginResp = action as LoginError;
-            return {...state, status: AuthStatus.UNAUTHENTICATED, message: loginResp.payload.message}
+            const loginResp = action as LoginError;
+            return { ...state, status: AuthStatus.UNAUTHENTICATED, message: loginResp.payload.message };
         default:
             return state;
     }

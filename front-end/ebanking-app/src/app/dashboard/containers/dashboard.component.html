@@ -1,21 +1,47 @@
-<table class="table">
-  <thead>
-  <tr>
-    <th>Nickname/Type</th>
-    <th>BSB/Details</th>
-    <th>Account number</th>
-    <th>Balance (<i class="fa fa-usd" aria-hidden="true"></i>)</th>
-    <th>Available funds<i class="fa fa-check"></i></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let account of accounts$ | async; let i = index">
-    <td>{{account.accountType}}</td>
-    <td>{{account.bsbCode ? account.bsbCode : 'Rewards'}}</td>
-    <td>{{account.accountNumber}}</td>
-    <td>{{account.balance}}</td>
-    <td>{{account.availableBalance}}</td>
-  </tr>
-  </tbody>
-</table>
-<!--<app-redux-example></app-redux-example>-->
+<eb-tabs>
+    <eb-tab [title]="'Accounts'" [active]="true">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Nickname/Type</th>
+                <th>BSB/Details</th>
+                <th>Account number</th>
+                <th>Balance (<i class="fa fa-usd" aria-hidden="true"></i>)</th>
+                <th>Available funds<i class="fa fa-check"></i></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let account of accounts$ | async; let i = index" (click)="openAccountDetails(account)">
+                <td>{{ account.accountType }}</td>
+                <td>{{ account.bsbCode ? account.bsbCode : 'Rewards' }}</td>
+                <td>{{ account.accountNumber }}</td>
+                <td>{{ account.balance }}</td>
+                <td>{{ account.availableBalance }}</td>
+            </tr>
+            </tbody>
+        </table>
+    </eb-tab>
+    <eb-tab title="Tab 2">content for tab2</eb-tab>
+</eb-tabs>
+<ng-template #editAccount>
+    The account details will go here ..
+</ng-template>
+
+
+<ng-template #msg let-c="close" let-d="dismiss" let-account="accounts$">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="c()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Something should go here with  {{account}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+    </div>
+</ng-template>

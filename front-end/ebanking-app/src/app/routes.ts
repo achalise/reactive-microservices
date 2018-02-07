@@ -1,33 +1,31 @@
-import { LoginComponent } from "./navigation/login/login.component";
-import { PaymentConfirmationComponent } from "./payment/containers/payment-confirmation/payment-confirmation.component";
-import { HomeLayoutComponent } from "./navigation/home-layout/home-layout.component";
-import { AuthGuard } from "./core/auth.guard";
-import { PaymentComponent } from "./payment/containers/payment/payment.component";
-import { Routes } from "@angular/router";
-import { LoginLayoutComponent } from "./navigation/login-layout/login-layout.component";
-import { DashboardComponent } from "./dashboard/containers/dashboard.component";
-import { PaymentGuard } from "./payment/payment.guard";
+import { Routes } from '@angular/router';
+import { AuthGuard } from './core/auth.guard';
+import { HomeLayoutComponent } from './navigation/home-layout/home-layout.component';
+import { LoginLayoutComponent } from './navigation/login-layout/login-layout.component';
+import { LoginComponent } from './navigation/login/login.component';
 
 export const routes: Routes = [
     {
-        path: 'welcome',
+        path: 'login',
         component: LoginLayoutComponent,
         children: [
             {
-                path: 'login',
+                path: '',
                 component: LoginComponent
             }
         ]
     },
     {
+        path: 'dashboard',
+        component: HomeLayoutComponent,
+        canActivate: [ AuthGuard ],
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
+    },
+    {
         path: '',
         component: HomeLayoutComponent,
-        canActivate: [AuthGuard],
-        children: [
-            {path: 'confirm-payment', component: PaymentConfirmationComponent},
-            {path: 'pay', component: PaymentComponent, canActivate: [PaymentGuard]},
-            {path: 'dashboard', component: DashboardComponent}
-        ]
+        canActivate: [ AuthGuard ],
+        loadChildren: './payment/payment.module#PaymentModule'
     },
-    {path: '**', redirectTo: '/welcome/login', pathMatch: 'full'}
+    { path: '**', redirectTo: '/login', pathMatch: 'full' }
 ];

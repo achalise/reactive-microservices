@@ -1,7 +1,7 @@
 import { Account } from "./account"
 
 export interface IAccountListResponse {
-    cashAccounts : Account[],
+    cashAccounts: Account[],
     cardAccounts: Account[],
     mortgageAccounts: Account[]
 }
