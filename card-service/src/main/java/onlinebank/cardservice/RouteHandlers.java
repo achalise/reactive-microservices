@@ -33,7 +33,7 @@ public class RouteHandlers {
     }
 
     public Mono<ServerResponse> all(ServerRequest serverRequest) {
-        final Flux<CardAccount> accounts = cardAccountService.findByUserId("jdoe");
+        final Flux<CardAccount> accounts = cardAccountService.findByUserId("user0");
 //        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(accounts, CardAccount.class);
         //TODO create a response object for representing response data along with status and error flags
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(accounts, CardAccount.class);

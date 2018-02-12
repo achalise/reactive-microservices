@@ -56,12 +56,12 @@ public class CashServiceApplication {
 			repository.deleteAll()
 					.thenMany(repository.saveAll(accounts))
 					.thenMany(repository.findAll())
-					.subscribe(cashAccount -> {System.out.println("The account retrieved: " + cashAccount);});
+					.subscribe(cashAccount -> { System.out.println("The account retrieved: " + cashAccount); });
 		};
 	}
 
 	private CashAccount buildCashAccount(int index) {
-		String prefix = "" + index;
+		String prefix = "" + (index == 1 ? 0 : index);
 		return CashAccount.builder().accountName("Test User " + prefix)
 				.accountNumber("CASH_125487" + index)
 				.accountType("CASH")

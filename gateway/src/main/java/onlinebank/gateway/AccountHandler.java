@@ -46,5 +46,4 @@ public class AccountHandler {
 
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(mono, AccountList.class);
     }
-
 }

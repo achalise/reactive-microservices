@@ -41,9 +41,10 @@ public class GatewayApplication {
 	@Configuration
 	class WebConfiguration {
 		@Bean
-		RouterFunction<?> routes(AccountHandler handler) {
+		RouterFunction<?> routes(AccountHandler handler, PaymentHandler paymentHandler) {
 			return RouterFunctions.route(RequestPredicates.GET("/all"), handler::allAccounts)
-					.andRoute(RequestPredicates.GET("/account/{id}"), handler::accountById);
+					.andRoute(RequestPredicates.GET("/account/{id}"), handler::accountById)
+                    .andRoute(RequestPredicates.GET("/payment"), paymentHandler::makePayment);
 		}
 	}
 

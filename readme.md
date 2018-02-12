@@ -33,16 +33,76 @@ The application comprises of following microservices:
 To build docker image of cashservice
 `docker build -t achalise/cash-service:0.0.1 .`
 
+for gateway service using the dockerfile-maven-plugin, 
+`./mvnw dockerfile:build`
+
 Create a spring boot starter project with start.spring.io selecting reactive web and reactive MongoDB options.
 
 
 
 Order to run:
 
-1. zookeeper-services.yaml
+1. zookeeper-services.yaml (`kubectl create -f kafka/zookeeper-services.yaml`)
 2. zookeeper-cluster.yaml
 3. kafka-service.yaml
 4. kafka-cluster.yaml
 5. mongo-cash.yaml
 6. cash-service.yaml
 7. gateway-service.yaml
+
+
+uninstall all:
+--------------
+kubectl delete -f gateway/k8s/gateway-service.yaml
+
+kubectl delete -f cash-service/k8s/cash-service.yaml
+kubectl delete -f cash-service/k8s/mongo-cash.yaml
+
+kubectl delete -f card-service/k8s/card-service.yaml 
+kubectl delete -f card-service/k8s/mongo-card.yaml
+
+kubectl delete -f kafka/kafka-cluster.yaml
+kubectl delete -f kafka/kafka-service.yaml
+
+kubectl delete -f kafka/zookeeper-cluster.yaml
+kubectl delete -f kafka/zookeeper-services.yaml
+
+install all:
+------------
+eval $(minikube docker-env)
+kubectl create -f kafka/namespace-kafka.yaml
+kubectl config set-context kafka --namespace=kafka-cluster --user=cluster-admin
+kubectl config use-context kafka
+
+kubectl create -f kafka/zookeeper-services.yaml
+kubectl create -f kafka/zookeeper-cluster.yaml
+
+kubectl create -f kafka/kafka-service.yaml 
+kubectl create -f kafka/kafka-cluster.yaml
+
+kubectl create -f cash-service/k8s/mongo-cash.yaml
+kubectl create -f cash-service/k8s/cash-service.yaml 
+
+kubectl create -f card-service/k8s/mongo-card.yaml
+kubectl create -f card-service/k8s/card-service.yaml
+
+kubectl create -f gateway/k8s/gateway-service.yaml
+
+***** during minikube upgrade if there are issues, try
+   - removing .minikube, .kube
+   - upgrading virtual box - if not current
+   - upgrading docker - if not current
+
+
+
+
+
+## For the front end
+
+- Install Angular cli globally
+  npm install -g @angular/cli
+- When there are multiple modules in the project, and using ng generate, specify module like this:
+   ng generate component payment/from-account --module=app.module
+
+
+

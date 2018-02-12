@@ -49,12 +49,13 @@ public class CardServiceApplication {
 	private CardAccount firstTestAccount() {
 		CardAccount cardAccount = CardAccount.builder().accountType("CARD")
 				.accountNumber("XXXXXXXXXXXX4237")
-				.userId("jdoe")
+				.userId("user0")
 				.bin("412389")
 				.interestRate(9.5)
 				.balance(2000)
 				.accountName("Jo Doe")
 				.id(UUID.randomUUID().toString())
+				.availableBalance(3000)
 				.build();
 		return cardAccount;
 
@@ -63,12 +64,13 @@ public class CardServiceApplication {
 	private CardAccount secondTestAccount() {
 		CardAccount cardAccount = CardAccount.builder().accountType("CARD")
 				.accountNumber("XXXXXXXXXXXX1548")
-				.userId("jdoe")
+				.userId("user0")
 				.bin("543189")
 				.interestRate(11.5)
 				.balance(1200)
 				.accountName("Jo Doe")
 				.id(UUID.randomUUID().toString())
+				.availableBalance(3800)
 				.build();
 		return cardAccount;
 
