@@ -10,7 +10,7 @@ export class PaymentService {
     }
 
     submitPayment(): Observable<IPaymentResponse> {
-        return this.http.get<IPaymentResponse>('api/pay');
+        return this.http.get<IPaymentResponse>('api/payment');
     }
 
 }

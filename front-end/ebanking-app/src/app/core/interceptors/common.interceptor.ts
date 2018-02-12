@@ -21,7 +21,7 @@ export class CommonInterceptor implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(`Intercepting the request: ${req.url}`);
 
-        if (environment.local) {
+        if (!(req.url.includes(`api/accounts`) || req.url.includes(`api/payment`)) && environment.local) {
             return new Observable(subscriber => {
                 subscriber.next(this.createResponse(req));
                 subscriber.complete();
@@ -39,7 +39,7 @@ export class CommonInterceptor implements HttpInterceptor {
     private createResponse(req: HttpRequest<any>): HttpResponse<any> {
         let rsp: HttpResponse<any>;
         const url = req.url;
-        if (url === 'api/accounts') {
+        if (url === 'xapi/accounts') {
             rsp = new HttpResponse({
                 status: 200,
                 body: accountListResponse
@@ -49,7 +49,7 @@ export class CommonInterceptor implements HttpInterceptor {
               status: 200,
               body: configDataResponse
           });
-        } else if (url === 'api/pay') {
+        } else if (url === 'api/payment') {
             rsp = new HttpResponse<any>({
                 status: 200,
                 body: paymentResponse

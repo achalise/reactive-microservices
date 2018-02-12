@@ -1,10 +1,16 @@
 {
-  "/api": {
-    "target": "http://192.168.99.100:31472/all",
+  "/api/payment": {
+    "target": "http://localhost:8083/payment",
     "secure": false,
     "pathRewrite": {
-      "^/api": ""
-    },
-    "changeOrigin": true
+      "^/api/payment": ""
+    }
+  },
+  "/api/accounts": {
+    "target": "http://localhost:8083/all",
+    "secure": false,
+    "pathRewrite": {
+      "^/api/accounts": ""
+    }
   }
 }

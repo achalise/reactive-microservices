@@ -14,32 +14,27 @@ export class AccountService {
     }
 
     getFromAccounts(): Observable<Account[]> {
-        const rootUrl = `http://192.168.99.100:31472/all`;
+        // const rootUrl = `http://192.168.99.100:31472/all`;
+        const rootUrl = `http://localhost:8083/`;
         return this.http.get<IAccountListResponse>('api/accounts')
             .map(d => d.cardAccounts.concat(d.cashAccounts))
-            .map(this.transForm);
+            .map(d => d.reduce(this.accReducer, []));
     }
 
     getPayees(): Observable<Payee[]> {
-        const ret = this.http.get<Payee[]>('api/payees').map(this.transformToPayee);
+        const ret = this.http.get<Payee[]>('api/payees').map(resp => resp.reduce(this.payeeReducer, []));
         return ret;
     }
 
-    private transformToPayee(d: any) {
-        const payees: Payee[] = [];
-        d.forEach(t => {
-            const payee = new Payee(t.accountName, t.accountNumber, t.payeeType);
-            payees.push(payee);
-        });
-        return payees;
-    }
+    private accReducer = (acc: Account[] = [], t): Account[] => {
+        const account = new Account(t.id, t.userId, t.accountName, t.accountNumber, t.accountType, t.balance, t.availableBalance, t.interestRate, t.bin, t.bsbCode);
+        acc.push(account);
+        return acc;
+    };
 
-    private transForm(d: any) {
-        const accounts: Account[] = [];
-        d.forEach(t => {
-            const account = new Account(t.id, t.userId, t.accountName, t.accountNumber, t.accountType, t.balance, t.availableBalance, t.interestRate, t.bin, t.bsbCode);
-            accounts.push(account);
-        });
-        return accounts;
-    }
+    private payeeReducer = (accumulator: Payee[], current): Payee[] => {
+        const payee = new Payee(current.accountName, current.accountNumber, current.payeeType);
+        accumulator.push(payee);
+        return accumulator;
+    };
 }

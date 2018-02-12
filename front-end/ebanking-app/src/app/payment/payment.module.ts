@@ -32,6 +32,6 @@ import { PaymentEffects } from './store';
 
 export class PaymentModule {
     constructor() {
-        console.log('Lazily loaded payment module ...');
+        console.log('Lazily loaded payment module ... ...');
     }
 }
