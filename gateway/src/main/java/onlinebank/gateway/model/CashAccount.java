@@ -1,7 +1,6 @@
 package onlinebank.gateway.model;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -11,15 +10,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Builder
-public class CashAccount {
-    private String id;
-    private String userId;
-    private String accountNumber;
+//@Builder
+public class CashAccount extends Account {
     private String bsbCode;
-    private String accountName;
-    private long balance;
-    private long availableBalance;
-    private String accountType;
-    private double interestRate;
 }

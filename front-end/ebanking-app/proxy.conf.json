@@ -7,7 +7,7 @@
     }
   },
   "/api/accounts": {
-    "target": "http://localhost:8083/all",
+    "target": "http://localhost:8083/accounts",
     "secure": false,
     "pathRewrite": {
       "^/api/accounts": ""

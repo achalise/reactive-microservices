@@ -1,6 +1,7 @@
 package onlinebank.cashservice;
 
 import onlinebank.cashservice.model.CashAccount;
+import onlinebank.cashservice.model.Transaction;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -29,11 +30,17 @@ public class RouteHandlers {
     }
 
     public Mono<ServerResponse> all(ServerRequest serverRequest) {
-        CashAccount[] theValues = new CashAccount[] {new CashAccount(), new CashAccount()};
         //TODO get user from the auth token
         Flux<CashAccount> flux = cashAccountService.findByUserId("user0");
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(flux, CashAccount.class);
-        //return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(flux, CashAccount.class);
     }
+
+    public Mono<ServerResponse> transactionsForAccount(ServerRequest serverRequest) {
+        String accountId = serverRequest.pathVariable("id");
+        Flux<Transaction> transactions = cashAccountService.retrieveTransactionsForAccount(accountId);
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(transactions, Transaction.class);
+    }
+
+
 
 }

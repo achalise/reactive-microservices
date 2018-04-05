@@ -31,10 +31,14 @@ public class GatewayApplication {
 	}
 
 	@Bean
-	CommandLineRunner getALlAccounts(WebClient cashAccountService) {
+	CommandLineRunner getALlAccounts(WebClient cashAccountService, WebClient cardAccountService) {
 		return strings -> {
+
 			cashAccountService.get().uri("/all").retrieve().bodyToFlux(String.class).subscribe(System.out::println);
 			cashAccountService.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class).subscribe(System.out::println);
+
+			cardAccountService.get().uri("/all").retrieve().bodyToFlux(String.class).subscribe(System.out::println);
+			cardAccountService.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class).subscribe(System.out::println);
 		};
 	}
 
@@ -42,9 +46,10 @@ public class GatewayApplication {
 	class WebConfiguration {
 		@Bean
 		RouterFunction<?> routes(AccountHandler handler, PaymentHandler paymentHandler) {
-			return RouterFunctions.route(RequestPredicates.GET("/all"), handler::allAccounts)
-					.andRoute(RequestPredicates.GET("/account/{id}"), handler::accountById)
-                    .andRoute(RequestPredicates.GET("/payment"), paymentHandler::makePayment);
+			return RouterFunctions.route(RequestPredicates.GET("/accounts"), handler::allAccounts)
+					.andRoute(RequestPredicates.GET("/account/{source}/{id}"), handler::accountById)
+					.andRoute(RequestPredicates.GET("/account/{source}/{id}/transactions"), handler::transactionsForAccount)
+                    .andRoute(RequestPredicates.POST("/payment"), paymentHandler::makePayment);
 		}
 	}
 

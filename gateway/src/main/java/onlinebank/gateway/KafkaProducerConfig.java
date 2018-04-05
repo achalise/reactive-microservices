@@ -1,8 +1,10 @@
-package onlinebank.cashservice;
+package onlinebank.gateway;
 
-import onlinebank.cashservice.model.Transaction;
+
+import onlinebank.gateway.model.Transaction;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 import org.springframework.kafka.support.serializer.JsonSerializer;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,3 +41,15 @@ public class KafkaProducerConfig {
     }
 }
 
+@Component
+class TransactionPublisher {
+    @Value(value = "${message.topic.name}")
+    private String topicName;
+
+    @Autowired
+    private KafkaTemplate<String, Transaction> kafkaTemplate;
+
+    public void publish(Transaction message) {
+        kafkaTemplate.send(topicName, message);
+    }
+}
