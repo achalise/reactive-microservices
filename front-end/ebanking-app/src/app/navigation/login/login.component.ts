@@ -30,7 +30,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         this.loginForm = this.fb.group({
             userId: [ '', Validators.required ],
-            password: [ '', Validators.required ]
+            password: [ '', Validators.required ],
+            verificationCode: ['']
         });
     }
 
@@ -40,7 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     submit() {
         const formValue = this.loginForm.value;
-        this.store.dispatch(new LoginRequest(new LoginInfo(formValue.userId, formValue.password)));
+        this.store.dispatch(new LoginRequest(new LoginInfo(formValue.userId, formValue.password, null, formValue.verificationCode)));
     }
 }
 

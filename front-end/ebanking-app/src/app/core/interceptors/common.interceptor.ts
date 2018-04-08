@@ -20,8 +20,8 @@ export class CommonInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         console.log(`Intercepting the request: ${req.url}`);
-
-        if (environment.local && !req.url.includes(`api/accounts`)) {
+        let nonMockEndPoints = [`api/accounts`, `api/login`];
+        if (environment.local && !nonMockEndPoints.some(s => req.url.includes(s))) {
             return new Observable(subscriber => {
                 subscriber.next(this.createResponse(req));
                 subscriber.complete();

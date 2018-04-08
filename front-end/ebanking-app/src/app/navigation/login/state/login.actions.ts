@@ -1,4 +1,3 @@
-import { ConfigData } from '@app/store/reducers/index';
 import { Action } from '@ngrx/store';
 import * as fromLogin from '@app/core/models';
 
@@ -6,6 +5,7 @@ export enum LoginActionTypes {
     LoginRequest = '[Login] - submit login request',
     LoginSuccess = '[Login] - success',
     LoginError = '[Login] - error',
+    Login2FA = '[Login] - 2FA prompt',
     LoginSuccessNavigate = '[Login]  - Sucess and navigate'
 }
 
@@ -34,4 +34,10 @@ export class LoginSuccessNavigate implements Action {
     readonly type = LoginActionTypes.LoginSuccessNavigate;
 }
 
-export type LoginActions = LoginRequest | LoginSuccess | LoginError;
+export class Login2FA implements Action {
+    readonly type = LoginActionTypes.Login2FA;
+
+    constructor(public payload: fromLogin.ILoginResponse) {}
+}
+
+export type LoginActions = LoginRequest | LoginSuccess | LoginError | Login2FA;

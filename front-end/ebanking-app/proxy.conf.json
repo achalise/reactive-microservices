@@ -12,5 +12,12 @@
     "pathRewrite": {
       "^/api/accounts": ""
     }
+  },
+  "/api/login": {
+    "target": "http://localhost:8083/login",
+    "secure": false,
+    "pathRewrite": {
+      "^/api/login": ""
+    }
   }
 }

@@ -22,7 +22,9 @@ public class AccountHandler {
 
     private WebClient cardAccountService;
 
-    public AccountHandler(WebClient cashAccountService, WebClient cardAccountService) {
+
+
+    public AccountHandler(WebClient cashAccountService, WebClient cardAccountService, WebClient googleQrService) {
         this.cashAccountService = cashAccountService;
         this.cardAccountService = cardAccountService;
     }

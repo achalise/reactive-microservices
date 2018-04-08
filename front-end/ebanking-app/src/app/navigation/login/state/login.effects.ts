@@ -5,6 +5,7 @@ import { Actions, Effect } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '@app/core/common/auth.service';
 import {
+    Login2FA,
     LoginActionTypes, LoginError, LoginRequest, LoginSuccess,
     LoginSuccessNavigate
 } from './login.actions';
@@ -45,9 +46,11 @@ export class LoginEffects {
         map(() => new LoginSuccessNavigate())
     );
 
-    private toPostLoginAction(loginResponse: ILoginResponse): LoginSuccess | LoginError {
+    private toPostLoginAction(loginResponse: ILoginResponse): LoginSuccess | LoginError | Login2FA {
         if (loginResponse.status === 'SUCCESS') {
             return new LoginSuccess(loginResponse);
+        } else if (loginResponse.status === 'AUTHENTICATED_2FA') {
+            return new Login2FA(loginResponse);
         } else {
             return new LoginError(loginResponse);
         }

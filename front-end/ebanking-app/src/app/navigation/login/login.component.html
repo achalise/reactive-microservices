@@ -1,7 +1,8 @@
 <div *ngIf="(brandConfigLoaded$ | async)">
     <form class="form-signin" [formGroup]="loginForm">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <div *ngIf="(loginStatus$ | async).message" class="alert alert-danger">{{ (loginStatus$ | async).message }}</div>
+        <div *ngIf="(loginStatus$ | async).message" class="alert alert-danger">{{ (loginStatus$ | async).message }}
+        </div>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" formControlName="userId"
                required autofocus>
@@ -13,6 +14,17 @@
                 <input type="checkbox" value="remember-me"> Remember me
             </label>
         </div>
+        <div *ngIf="(loginStatus$ | async).status === 'Authenticated_2FA' && (loginStatus$ | async).qrData">
+            <h4>Please save the 2FA code</h4>
+            <img [src]="'data:image/png;base64,'+(loginStatus$ | async).qrData"/>
+        </div>
+
+        <div *ngIf="(loginStatus$ | async).status === 'Authenticated_2FA' && !(loginStatus$ | async).qrData">
+            <h4>Please enter the 2FA verification code</h4>
+            <label for="inputEmail" class="sr-only">Verification code</label>
+            <input type="text" id="verificationCode" class="form-control" placeholder="Verification code" formControlName="verificationCode">
+        </div>
         <button class="btn btn-lg btn-primary btn-block" type="button" (click)="submit()">Sign in</button>
     </form>
 </div>
+

@@ -1,5 +1,6 @@
 export enum AuthStatus {
     AUTHENTICATING = 'Authenticating',
     AUTHENTICATED = 'Authenticated',
-    UNAUTHENTICATED = 'UnAuthenticated'
+    UNAUTHENTICATED = 'UnAuthenticated',
+    AUTHENTICATED_2FA = 'Authenticated_2FA'
 }

@@ -12,6 +12,7 @@ export interface IAuthenticationState {
     status: AuthStatus;
     errorCode: string;
     message: string;
+    qrData: string;
 }
 
 // TODO we need to come up with shape for config data
