@@ -2,14 +2,14 @@ apiVersion: v1
 kind: ReplicationController
 metadata:
   labels:
-    name: mongo-cash
-  name: mongo-cash-controller
+    name: mongo-gateway
+  name: mongo-gateway-controller
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        name: mongo-cash
+        name: mongo-gateway
     spec:
       containers:
       - image: mongo
@@ -17,24 +17,23 @@ spec:
         ports:
         - name: mongo
           containerPort: 27017
-          hostPort: 27017
         volumeMounts:
             - name: mongo-persistent-storage
               mountPath: /data/db
       volumes:
         - name: mongo-persistent-storage
           hostPath:
-                path: /data/mongodb/cash-service
+                path: /data/mongodb/gateway-service
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    name: mongo-cash
-  name: mongo-cash-service
+    name: mongo-gateway
+  name: mongo-gateway-service
 spec:
   ports:
     - port: 27017
       targetPort: 27017
   selector:
-    name: mongo-cash
+    name: mongo-gateway

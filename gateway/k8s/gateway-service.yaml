@@ -21,6 +21,8 @@ spec:
               value: cash-service
             - name: CARD_SERVICE_HOST
               value: card-service
+            - name: MONGO_URI
+              value: mongo-gateway-service
 ---
 apiVersion: v1
 kind: Service
