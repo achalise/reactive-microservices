@@ -1,14 +1,13 @@
 # online banking example
 
-My attempt to build a complete solution using
+Example project showcasing:
 
 * SpringBoot microservices with reactive streams
-* Kafka to implement CQRS
+* Kafka for messaging between microservices
 * OAuth2 security
-* Angular 4 front end
-* A backend for the front end using NodeJS
+* Angular 5 front end
 * All deployed in local kubernetes cluster (minikube)
-* Instructions on how to deploy on AWS
+* Finally Instructions on how to deploy on AWS
 
 To use local docker daemon within minikube, `eval $(minikube docker-env)`
 
