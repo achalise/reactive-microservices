@@ -57,10 +57,18 @@ public class GatewayApplication {
 					.thenMany(userRepository.findAll())
 					.subscribe(user -> System.out.println("User in the system " + user), error -> System.out.println(error));
 
-			cashAccountService.get().uri("/all").retrieve().bodyToFlux(String.class).subscribe(System.out::println);
+			cashAccountService.get().uri("/accounts").retrieve().bodyToFlux(String.class).subscribe((acct) -> {
+				System.out.println("The cash accounts in the system" + acct);
+			}, err -> {
+				System.out.println("Error occurred: "+ err);
+			});
 			cashAccountService.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class).subscribe(System.out::println);
 
-			cardAccountService.get().uri("/all").retrieve().bodyToFlux(String.class).subscribe(System.out::println);
+			cardAccountService.get().uri("/accounts").retrieve().bodyToFlux(String.class).subscribe((acct) -> {
+				System.out.println("The card accounts " +  acct);
+			}, (error) -> {
+				System.out.println("Error occurred retrieving card accounts " + error);
+			});
 			cardAccountService.get().uri("/account/{id}", "accountid").retrieve().bodyToMono(String.class).subscribe(System.out::println);
 		};
 	}

@@ -1,1 +1,1 @@
-export * from './account.actions';
+export * from './dashboard.actions';

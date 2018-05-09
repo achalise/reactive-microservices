@@ -22,6 +22,12 @@ export const routes: Routes = [
         loadChildren: './dashboard/dashboard.module#DashboardModule'
     },
     {
+        path: 'account',
+        component: HomeLayoutComponent,
+        canActivate: [ AuthGuard ],
+        loadChildren: './accounts/accounts.module#AccountsModule'
+    },
+    {
         path: '',
         component: HomeLayoutComponent,
         canActivate: [ AuthGuard ],

@@ -12,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
         CommonModule,
         DashboardRoutingModule,
         UiWidgetsModule,
-        StoreModule.forFeature('accounts', fromAccounts.accountsReducer),
+        StoreModule.forFeature('dashboard', fromAccounts.dashboardReducer),
         EffectsModule.forFeature([ fromAccounts.AccountEffects ])
     ],
     declarations: [ fromContainers.DashboardComponent ],

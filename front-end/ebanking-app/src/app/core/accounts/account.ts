@@ -1,6 +1,6 @@
 export class Account {
-    constructor(private id: string,
-                private userId: string,
+    constructor(public id: string,
+                public userId: string,
                 public accountName: string,
                 public accountNumber: string,
                 public accountType: string, // TODO change to enum

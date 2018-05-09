@@ -23,7 +23,7 @@ public class CardServiceApplication {
 
 	@Bean
 	RouterFunction<?> routes(RouteHandlers routeHandlers) {
-		return RouterFunctions.route(RequestPredicates.GET("/all"), routeHandlers::all)
+		return RouterFunctions.route(RequestPredicates.GET("/accounts"), routeHandlers::all)
 				.andRoute(RequestPredicates.GET("/account/{id}"), routeHandlers::byId);
 	}
 

@@ -1,0 +1,38 @@
+<table class="table borderless">
+  <tbody>
+     <tr>
+       <td width="30%">
+         Account Number:
+       </td>
+       <td width="70%">
+         {{account.accountNumber}}
+       </td>
+     </tr>
+     <tr>
+       <td width="30%">
+         Account Name:
+       </td>
+       <td width="70%">
+         {{account.accountName}}
+       </td>
+     </tr>
+     <tr>
+       <td width="30%">
+         Available Balance:
+       </td>
+       <td width="70%">
+         {{account.availableBalance}}
+       </td>
+     </tr>
+  </tbody>
+</table>
+<table class="table">
+  <thead>
+     <th colspan="4"> Transactions </th>
+  </thead>
+</table>
+
+<div *ngFor="let tx of (transactions$ | async)">
+    {{tx.accountNumber}}
+</div>
+

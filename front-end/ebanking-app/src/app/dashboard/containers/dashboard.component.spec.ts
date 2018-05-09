@@ -3,10 +3,10 @@ import { async, ComponentFixture, fakeAsync, TestBed } from '@angular/core/testi
 import { DashboardComponent } from './dashboard.component';
 import { AccountService } from '@app/core/accounts/account.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { accountsReducer } from '../store/';
+import { dashboardReducer } from '../store/';
 import { Store, StoreModule } from '@ngrx/store';
 import { State } from '@app/store/reducers/index';
-import { RequestAccounts, RequestAccountsComplete } from '../store/actions/account.actions';
+import { RequestAccounts, RequestAccountsComplete } from '../store/actions/dashboard.actions';
 import { Account } from '@app/core/accounts/account';
 
 describe('DashboardComponent', () => {
@@ -20,7 +20,7 @@ describe('DashboardComponent', () => {
                 providers: [ AccountService ],
                 imports: [ HttpClientTestingModule,
                     StoreModule.forRoot({
-                        accounts: accountsReducer
+                        accounts: dashboardReducer
                     }) ]
             })
             .compileComponents();

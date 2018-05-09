@@ -1,5 +1,6 @@
 package onlinebank.cashservice;
 
+import lombok.extern.java.Log;
 import onlinebank.cashservice.model.Transaction;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
@@ -24,6 +25,7 @@ import java.util.Map;
  */
 @EnableKafka
 @Configuration
+@Log
 public class KafkaConsumerConfig {
 
     @Autowired
@@ -69,6 +71,7 @@ public class KafkaConsumerConfig {
 
     @KafkaListener(topics = "mytopic", groupId = "two", containerFactory = "kafkaListenerContainerFactory")
     public void listen(Transaction message) {
+        log.info("Received message " + message);
         System.out.println("Received Messasge in group foo: " + message);
         Mono<Boolean> result = cashAccountService.processTransaction(message);
         result.subscribe(t -> System.out.print("The result is " + t));

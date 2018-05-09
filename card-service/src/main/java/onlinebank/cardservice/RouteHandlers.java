@@ -34,6 +34,11 @@ public class RouteHandlers {
 
     public Mono<ServerResponse> all(ServerRequest serverRequest) {
         final Flux<CardAccount> accounts = cardAccountService.findByUserId("user0");
+        accounts.subscribe((accts) -> {
+            System.out.println("Retrieved card accounts " + accts);
+        }, (err) -> {
+           System.out.println("Error in retrieving card accounts " + err);
+        });
 //        return ServerResponse.ok().contentType(MediaType.TEXT_EVENT_STREAM).body(accounts, CardAccount.class);
         //TODO create a response object for representing response data along with status and error flags
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(accounts, CardAccount.class);

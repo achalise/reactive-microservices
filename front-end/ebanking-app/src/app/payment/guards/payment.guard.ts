@@ -32,7 +32,7 @@ export class PaymentGuard implements CanActivate {
                 this.store.dispatch(new InitPaymentRequest());
             }
         }).filter(d => !!d);
-        const accounts$ = this.store.select(fromAccounts.getAccountsState).do(d => {
+        const accounts$ = this.store.select(fromAccounts.getDashboardState).do(d => {
             if (!d || (!d.accountLoading && d.accounts && d.accounts.length === 0)) {
                 console.log('Requesting accounts ...');
                 this.store.dispatch(new RequestAccounts());

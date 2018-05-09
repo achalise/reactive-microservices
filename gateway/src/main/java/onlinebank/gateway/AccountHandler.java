@@ -66,8 +66,8 @@ public class AccountHandler {
     }
 
     Mono<ServerResponse> allAccounts(ServerRequest request) {
-        Mono<List<CashAccount>> cashAccountList = cashAccountService.get().uri("/all").retrieve().bodyToFlux(CashAccount.class).collectList();
-        Mono<List<CardAccount>> cardAccountList = cardAccountService.get().uri("/all").retrieve().bodyToFlux(CardAccount.class).collectList();
+        Mono<List<CashAccount>> cashAccountList = cashAccountService.get().uri("/accounts").retrieve().bodyToFlux(CashAccount.class).collectList();
+        Mono<List<CardAccount>> cardAccountList = cardAccountService.get().uri("/accounts").retrieve().bodyToFlux(CardAccount.class).collectList();
         Mono<AccountList> mono = cashAccountList.zipWith(cardAccountList, (cash, card) -> {
             AccountList accountList = new AccountList();
             accountList.setCashAccounts(cash);

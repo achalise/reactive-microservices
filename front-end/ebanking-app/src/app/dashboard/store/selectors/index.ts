@@ -1,1 +1,1 @@
-export * from './account.selectors';
+export * from './dashboard.selectors';

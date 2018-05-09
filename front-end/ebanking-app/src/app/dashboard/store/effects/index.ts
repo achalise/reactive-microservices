@@ -1,2 +1,2 @@
-export * from './account.effects';
+export * from './dashboard.effects';
 

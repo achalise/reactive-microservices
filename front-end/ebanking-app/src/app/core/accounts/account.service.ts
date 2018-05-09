@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Transaction } from '@app/core/accounts/transaction';
 import { Account } from './account';
 import { HttpClient } from '@angular/common/http';
 import { IAccountListResponse } from './account.response';
@@ -26,6 +27,10 @@ export class AccountService {
         return ret;
     }
 
+    getTransactions(account: Account): Observable<Transaction[]> {
+        return this.http.get<Transaction[]>(`api/account/${account.accountType.toLowerCase()}/${account.id}/transactions`).map(resp => resp.reduce(this.transactionReducer, []));
+    }
+
     private accReducer = (acc: Account[] = [], t): Account[] => {
         const account = new Account(t.id, t.userId, t.accountName, t.accountNumber, t.accountType, t.balance, t.availableBalance, t.interestRate, t.bin, t.bsbCode);
         acc.push(account);
@@ -35,6 +40,13 @@ export class AccountService {
     private payeeReducer = (accumulator: Payee[], current): Payee[] => {
         const payee = new Payee(current.accountName, current.accountNumber, current.payeeType);
         accumulator.push(payee);
+        return accumulator;
+    };
+
+    private transactionReducer = (accumulator: Transaction[], current): Transaction[] => {
+        const tx = new Transaction(current.transactionId, current.accountNumber, current.toAccount,
+            current.amount, current.description, current.transactionType, current.balance);
+        accumulator.push(tx);
         return accumulator;
     };
 }

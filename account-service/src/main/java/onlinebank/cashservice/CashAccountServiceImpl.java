@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.math.BigDecimal;
+
 /**
  * Created by achalise on 19/10/17.
  */
@@ -44,9 +46,15 @@ public class CashAccountServiceImpl implements CashAccountService {
         return Mono.create(sink -> {
             findByAccountNumber(transaction.getAccountNumber())
                     .flatMap(ca -> updateAccount(ca, transaction))
+                    .map(ca -> updateTransactionBalance(ca.getBalance(), transaction))
                     .then(transactionRepository.save(transaction))
                     .subscribe(t -> sink.success(true), err -> sink.success(false));
         });
+    }
+
+    private Transaction updateTransactionBalance(long balance, Transaction transaction) {
+        transaction.setBalance(BigDecimal.valueOf(balance));
+        return transaction;
     }
 
     @Override
@@ -60,8 +68,10 @@ public class CashAccountServiceImpl implements CashAccountService {
 
     private Mono<CashAccount> updateAccount(CashAccount account, Transaction txn) {
         if (txn.getTransactionType().equals("CREDIT")) {
+            account.setBalance(account.getBalance() + txn.getAmount().intValue());
             account.setAvailableBalance(account.getAvailableBalance() + txn.getAmount().intValue());
         } else {
+            account.setBalance(account.getBalance() + txn.getAmount().intValue());
             account.setAvailableBalance(account.getAvailableBalance() - txn.getAmount().intValue());
         }
         return cashAccountRepository.save(account);
