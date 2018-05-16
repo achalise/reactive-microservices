@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Transaction } from '@app/core/accounts/transaction';
+import { of } from 'rxjs/observable/of';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { Account } from './account';
 import { HttpClient } from '@angular/common/http';
 import { IAccountListResponse } from './account.response';
@@ -27,6 +29,19 @@ export class AccountService {
         return ret;
     }
 
+    getPayees2(): Observable<Payee[]> {
+        const biller = new Payee('c889ca24-c882-41c1-bd1a-052bf5303587', 'AGL Energy', null,
+            'BILLER', null, '321346', '11145321788', 'Electricity Bill');
+        return this.getFromAccounts().pipe(
+            withLatestFrom(of([biller])),
+            map(([a, b]) => {
+                return a.map(acc => new Payee(acc.id, acc.accountName, acc.accountNumber,
+                    'SELF', null,
+                    null, null)).concat(b);
+            })
+        );
+    }
+
     getTransactions(account: Account): Observable<Transaction[]> {
         return this.http.get<Transaction[]>(`api/account/${account.accountType.toLowerCase()}/${account.id}/transactions`).map(resp => resp.reduce(this.transactionReducer, []));
     }
@@ -38,7 +53,7 @@ export class AccountService {
     };
 
     private payeeReducer = (accumulator: Payee[], current): Payee[] => {
-        const payee = new Payee(current.accountName, current.accountNumber, current.payeeType);
+        const payee = new Payee(current.id, current.accountName, current.accountNumber, current.payeeType);
         accumulator.push(payee);
         return accumulator;
     };

@@ -45,10 +45,14 @@ public class CashAccountServiceImpl implements CashAccountService {
     public Mono<Boolean> processTransaction(Transaction transaction) {
         return Mono.create(sink -> {
             findByAccountNumber(transaction.getAccountNumber())
+                    .doOnError(e -> {System.out.println("Error when retrieving the account: " + e);})
                     .flatMap(ca -> updateAccount(ca, transaction))
                     .map(ca -> updateTransactionBalance(ca.getBalance(), transaction))
                     .then(transactionRepository.save(transaction))
-                    .subscribe(t -> sink.success(true), err -> sink.success(false));
+                    .subscribe(t -> sink.success(true), err -> {
+                        err.printStackTrace();
+                        sink.success(false);
+                    });
         });
     }
 
@@ -67,6 +71,7 @@ public class CashAccountServiceImpl implements CashAccountService {
     }
 
     private Mono<CashAccount> updateAccount(CashAccount account, Transaction txn) {
+        System.out.println("Updating account " + account.getAccountNumber());
         if (txn.getTransactionType().equals("CREDIT")) {
             account.setBalance(account.getBalance() + txn.getAmount().intValue());
             account.setAvailableBalance(account.getAvailableBalance() + txn.getAmount().intValue());

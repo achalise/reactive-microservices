@@ -1,9 +1,12 @@
 export class Payee {
-    constructor(public accountName: string,
+    constructor(
+                public id: string,
+                public accountName: string,
                 public accountNumber: string,
                 public payeeType: string, // TODO change to enum
                 public bsbCode?: string,
                 public billerCode?: string,
+                public billerReferenceNo?: string,
                 public payeeNickName?: string) {
     }
 

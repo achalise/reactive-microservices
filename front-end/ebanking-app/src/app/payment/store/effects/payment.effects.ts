@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { SubmitPaymentRequest } from '@app/payment/store';
 import { Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { PaymentService } from 'app/payment/services/payment.service';
@@ -9,17 +10,17 @@ import { PaymentActionTypes, SubmitPaymentSuccess, SubmitPaymentSuccessNavigate 
 
 @Injectable()
 export class PaymentEffects {
-    
+
     constructor(private router: Router,
                 private actions$: Actions,
                 private paymentService: PaymentService) {
     }
-    
+
     @Effect() submitPayment$: Observable<Action> = this.actions$.ofType(PaymentActionTypes.SubmitPaymentRequest).pipe(
-        switchMap(() => this.paymentService.submitPayment()),
+        switchMap((action: SubmitPaymentRequest) => this.paymentService.submitPayment(action.payload)),
         map((paymentResponse) => new SubmitPaymentSuccess(paymentResponse))
     );
-    
+
     @Effect() submitPaymentSuccess$: Observable<Action> = this.actions$.ofType(PaymentActionTypes.SubmitPaymentRequestSuccess).pipe(
         tap(() => {
             this.router.navigate([ 'dashboard' ]);

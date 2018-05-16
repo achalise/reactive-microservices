@@ -10,13 +10,13 @@ import { PayeeActionTypes, RequestPayeesComplete } from '../actions/payee.action
 
 @Injectable()
 export class PayeeEffects {
-    
+
     constructor(private actions$: Actions,
                 private accountService: AccountService) {
     }
-    
+
     @Effect()
     loadPayees$: Observable<Action> = this.actions$.ofType(PayeeActionTypes.RequestPayees).pipe(
-        switchMap(() => this.accountService.getPayees()),
+        switchMap(() => this.accountService.getPayees2()),
         map(payees => new RequestPayeesComplete(payees)));
 }

@@ -22,7 +22,7 @@ export class AuthService {
     isAuthenticated(): Observable<boolean> {
         return null;
     }
-    // TODO this should be in config data service. We need to talk about the app config data management.
+
     retrieveConfigData(): Observable<ConfigData> {
         return this.http.get<ConfigData>('api/configData');
     }

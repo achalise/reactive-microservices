@@ -35,10 +35,11 @@ public class PaymentHandler {
     }
 
     private Transaction convertToTransaction(PaymentRequest paymentRequest) {
-        Transaction tx = Transaction.builder().toAccount(paymentRequest.getToAccount())
+        Transaction tx = Transaction.builder().toAccount(paymentRequest.getToAccountNumber())
                 .description(paymentRequest.getDescription())
                 .amount(paymentRequest.getAmount())
-                .accountNumber(paymentRequest.getAccountNumber())
+                .accountNumber(paymentRequest.getFromAccountNumber())
+                .transactionType("DEBIT")
                 .transactionId(UUID.randomUUID().toString())
                 .build();
 

@@ -33,10 +33,10 @@ public class PaymentHandlerTest {
     @Test
     public void testWebTestClientWithRouterFunction() {
         PaymentRequest req = new PaymentRequest();
-        req.setAccountNumber("123");
+        req.setFromAccountNumber("123");
         req.setAmount(new BigDecimal(100));
         req.setDescription("Payment ");
-        req.setToAccount("4555");
+        req.setToAccountNumber("4555");
 
         WebTestClient.bindToRouterFunction(routerFunction())
                 .build()

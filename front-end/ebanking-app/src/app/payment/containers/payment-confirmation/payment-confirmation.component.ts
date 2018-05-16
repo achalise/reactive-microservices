@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Account } from '@app/core/accounts/account';
 import { Payee } from '@app/core/accounts/payee';
+import { PaymentRequestModel } from '@app/payment/models/payment-request.model';
+import { PaymentRequest } from '@app/payment/store';
 import * as fromPayement from '@app/payment/store/';
 import { SubmitPaymentRequest } from '@app/payment/store/actions/payment.actions';
 import * as appState from '@app/store/reducers/index';
@@ -35,7 +37,11 @@ export class PaymentConfirmationComponent implements OnInit {
 
     submit() {
         console.log('submitted payment: ');
-        this.store.dispatch(new SubmitPaymentRequest());
+        const paymentRquest: PaymentRequestModel = new PaymentRequestModel(this.fromAccount.id,
+            this.paymentDate, this.fromAccount.accountType, this.fromAccount.accountNumber, this.amount,
+            this.notes, this.toAccount.id, this.toAccount.billerCode,
+            this.toAccount.billerReferenceNo, null, this.toAccount.accountNumber, 'Internal Transfer');
+        this.store.dispatch(new SubmitPaymentRequest(paymentRquest));
     }
 
     cancel() {
